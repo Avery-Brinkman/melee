@@ -9,6 +9,7 @@
 #include "plbonus.h"
 #include "plbonusinline.h"
 
+#include <dolphin/mtx.h>
 #include <ft/ft_0877.h>
 #include <ft/ft_0892.h>
 #include <ft/ftlib.h>
@@ -865,6 +866,103 @@ void fn_8003F53C(int arg0, int arg1)
             temp_r31->xD58 = 0U;
         }
     }
+}
+
+void fn_8003F654(int slot, int index, Vec3* pos, Vec3* prevPos)
+{
+    /// @todo Need to fix the issues with the registers that get used
+    Vec3 sp44;
+    Vec3 sp38;
+    HSD_GObj* temp_r27;
+    float distance;
+    float deltaX_2;
+    float deltaY_2;
+    float deltaX_3;
+    float totalDistanceX;
+    float deltaX_4;
+    pl_StaleMoveTableExt_t* temp_r31;
+    pl_StaleMoveTableExt_t* temp_r3_3;
+    s32 temp_r3;
+    s32 temp_r3_2;
+    int currentSlot;
+    int numMatchingCriteria;
+
+    temp_r31 = Player_GetStaleMoveTableIndexPtr2(slot);
+    temp_r27 = Player_GetEntityAtIndex(slot, index);
+
+    RETURN_IF(!pl_Verify_gm_8016AEDC() || index == 1 ||
+              ftLib_8008732C(temp_r27));
+
+    temp_r3 = ft_80087B34(temp_r27);
+    if (temp_r3 == 1) {
+        distance = sqrtf(SQ(prevPos->x - pos->x) + SQ(prevPos->y - pos->y));
+
+        temp_r3_2 = ftLib_80087300(temp_r27);
+        temp_r31->xD80 += distance;
+
+        if (distance > temp_r31->xD84) {
+            temp_r31->xD84 = distance;
+        }
+
+        if (temp_r3_2 != 6) {
+            temp_r3_3 = Player_GetStaleMoveTableIndexPtr2(temp_r3_2);
+
+            if (distance > temp_r3_3->xD88) {
+                temp_r3_3->xD88 = distance;
+            }
+        }
+    } else if (temp_r3 == 0) {
+        if (ftLib_800865CC(temp_r27) == 0) {
+            deltaX_2 = pos->x - prevPos->x;
+            temp_r31->xD74 += ABS(deltaX_2);
+        } else {
+            deltaY_2 = pos->y - prevPos->y;
+            if (deltaY_2 > 0.0F) {
+                temp_r31->xD78 += ABS(deltaY_2);
+            } else {
+                temp_r31->xD7C += ABS(deltaY_2);
+            }
+        }
+    }
+
+    totalDistanceX = 0.0F;
+    numMatchingCriteria = 0;
+    for (currentSlot = 0; currentSlot < 6; ++currentSlot) {
+        if (currentSlot == slot) {
+            continue;
+        }
+
+        if (!pl_CheckIfSameTeam(slot, currentSlot) &&
+            Player_8003221C(currentSlot) &&
+            !ftLib_8008732C(Player_GetEntity(currentSlot)))
+        {
+            Player_LoadPlayerCoords(currentSlot, &sp44);
+            deltaX_3 = pos->x - sp44.x;
+            totalDistanceX += ABS(deltaX_3);
+            numMatchingCriteria += 1;
+        }
+    }
+
+    if (numMatchingCriteria != 0) {
+        /// @todo Fix this cumulative average calculation. Might be inlined
+        float avgDistanceX;
+
+        temp_r31->xD90 += 1;
+
+        avgDistanceX =
+            pl_CalculateAverage(totalDistanceX, numMatchingCriteria);
+        temp_r31->xD8C = pl_CalculateAverage(
+            temp_r31->xD8C * (float) (temp_r31->xD90 - 1) + avgDistanceX,
+            temp_r31->xD90);
+    }
+
+    /// @todo Fix this cumulative average calculation. Might be inlined
+    temp_r31->xD98 += 1;
+    Stage_UnkSetVec3TCam_Offset(&sp38);
+    deltaX_4 = ABS(pos->x - sp38.x);
+    temp_r31->xD94 = pl_CalculateAverage(
+        (temp_r31->xD94 * (float) (temp_r31->xD98 - 1)) + deltaX_4,
+        temp_r31->xD98);
 }
 
 void pl_8003FAA8(int slot, int index, Vec3* pos, Vec3* prevPos)
