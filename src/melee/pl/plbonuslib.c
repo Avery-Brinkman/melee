@@ -1351,18 +1351,13 @@ void pl_80040688(int arg0, int arg1, int arg2)
 
 float pl_800407C8(int arg0)
 {
-    f32 temp_f31;
-    pl_StaleMoveTableExt_t* temp_r3;
-    u32 temp_r5;
+    pl_StaleMoveTableExt_t* temp_r3 = Player_GetStaleMoveTableIndexPtr2(arg0);
 
-    temp_r3 = Player_GetStaleMoveTableIndexPtr2(arg0);
-    temp_r5 = temp_r3->x0_staleMoveTable.xCEC;
-    if (temp_r5 != 0) {
-        float tmp = temp_r3->x0_staleMoveTable.xCEC;
-        temp_f31 = temp_r3->x0_staleMoveTable.xCF0;
-        return pl_CalculateAverage(temp_f31, tmp);
+    if (temp_r3->x0_staleMoveTable.xCEC != 0U) {
+        return pl_CalculateAverage(temp_r3->x0_staleMoveTable.xCF0,
+                                   temp_r3->x0_staleMoveTable.xCEC);
     }
-    return 0.0f;
+    return 0.0F;
 }
 
 float pl_80040870(int arg0)

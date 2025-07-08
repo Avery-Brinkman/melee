@@ -86,8 +86,8 @@ struct StaleMoveTable {
     /* +CE0 */ float xCE0;
     /* +CE4 */ int xCE4;
     /* +CE8 */ int xCE8;
-    /* +CEC */ int xCEC;
-    /* +CF0 */ int xCF0;
+    /* +CEC */ unsigned int xCEC;
+    /* +CF0 */ unsigned int xCF0;
 };
 STATIC_ASSERT(sizeof(struct StaleMoveTable) == 0xCF4);
 
