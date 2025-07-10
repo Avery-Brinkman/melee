@@ -19,6 +19,6 @@ struct pl_80037B2C_unk {
 /* 037F00 */ UNK_RET fn_80037F00(UNK_PARAMS);
 /* 038144 */ void pl_80038144(void);
 /* 0384DC */ void pl_800384DC(HSD_GObj*, u8, void*);
-/* 038628 */ UNK_RET pl_80038628(UNK_PARAMS);
+/* 038628 */ int pl_80038628(HSD_GObj*, int);
 
 #endif

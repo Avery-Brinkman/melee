@@ -1,13 +1,14 @@
 #ifndef GALE01_1601C4
 #define GALE01_1601C4
 
-#include <melee/gm/gm_17C0.h>
-
 #include <platform.h>
 #include <placeholder.h>
 
 #include "gm/forward.h"
 #include "it/forward.h"
+
+#include <melee/gm/gm_17C0.h>
+
 
 /* 1601C4 */ UNK_RET gm_801601C4(UNK_PARAMS);
 /* 160244 */ UNK_RET gm_80160244(UNK_PARAMS);
@@ -365,7 +366,7 @@
 /* 171DC4 */ UNK_RET fn_80171DC4(UNK_PARAMS);
 /* 1720B4 */ int gm_801720B4(void);
 /* 1720F8 */ int gm_801720F8(void);
-/* 172140 */ UNK_RET gm_80172140(UNK_PARAMS);
+/* 172140 */ int gm_80172140(void);
 /* 172174 */ UNK_RET gm_80172174(UNK_PARAMS);
 /* 17219C */ UNK_RET gm_8017219C(UNK_PARAMS);
 /* 1721EC */ UNK_RET gm_801721EC(UNK_PARAMS);
