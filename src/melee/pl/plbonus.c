@@ -427,10 +427,7 @@ void fn_80039618(int arg0)
     u8 temp_r0_3;
     u8* temp_r18;
     u8* temp_r19;
-    u8* temp_r23;
-    u8* var_r31_2;
-    u8* var_r31_3;
-    u8* var_r3_2;
+    u32* temp_r23;
     u8* var_r3_3;
     u8* var_r3_4;
     int i;
@@ -443,7 +440,7 @@ void fn_80039618(int arg0)
     temp_r18 = temp_r27->x4;
     sp54 = temp_r27->x194;
     temp_r16 = temp_r27->x1A8;
-    temp_r23 = temp_r27->x1B0;
+    temp_r23 = (u32*) temp_r27->x1B0;
     temp_r17 = temp_r27->x340;
     temp_r19 = temp_r27->x35C;
     temp_r22 = temp_r27->x348;
@@ -472,7 +469,7 @@ void fn_80039618(int arg0)
             bool match = true;
             for (i = 0; i < 9; ++i) {
                 if ((var_r4 + 1 >= 0x33 && var_r4 + 1 <= 0x3D) ||
-                    ((u32*) temp_r23)[i] == 0)
+                    (temp_r23[i] == 0))
                 {
                     match = false;
                     break;
@@ -491,12 +488,10 @@ void fn_80039618(int arg0)
         }
     }
 
-    var_r3_2 = temp_r23 + 0x100;
     var_r5 = 0U;
     var_r6 = 0U;
-    var_r4_2 = 0x40;
-    do {
-        temp_r0_2 = *var_r3_2;
+    for (var_r4_2 = 0x40; var_r4_2 <= 0x62; ++var_r4_2) {
+        temp_r0_2 = temp_r23[var_r4_2];
         var_r5 += temp_r0_2;
         switch (var_r4_2) {
         case 0x42:
@@ -507,12 +502,10 @@ void fn_80039618(int arg0)
             var_r6 += temp_r0_2;
             break;
         }
-        var_r4_2 += 1;
-        var_r3_2 += 4;
-    } while (var_r4_2 <= 0x62);
+    }
+
     if (var_r5 != 0U) {
-        // if ((u32) temp_r25 == (u32) temp_r23->unk188) {
-        if ((u32) temp_r25 == *((u32*) &temp_r23[0x188])) {
+        if ((u32) temp_r25 == temp_r23[0x62]) {
             setKindToOne_inline(arg0, 0x95);
         } else if ((u32) temp_r25 == var_r6) {
             setKindToOne_inline(arg0, 0x96);
@@ -520,59 +513,49 @@ void fn_80039618(int arg0)
             setKindToOne_inline(arg0, 0x94);
         }
     }
-    var_r28 = 0;
-loop_81:
-    var_r31 = 1;
-loop_82:
-    if ((pl_80037B2C((struct pl_80037B2C_unk*) temp_r27, var_r28, var_r31) !=
-         0) ||
-        (pl_80038628(temp_r26, var_r31) == 0))
-    {
-        var_r31 += 1;
-        if (var_r31 <= 0x10) {
-            goto loop_82;
+
+    for (var_r28 = 0; var_r28 < 6; ++var_r28) {
+        for (var_r31 = 1; var_r31 <= 0x10; ++var_r31) {
+            if ((pl_80037B2C((struct pl_80037B2C_unk*) temp_r27, var_r28,
+                             var_r31) == 0) &&
+                (pl_80038628(temp_r26, var_r31) != 0))
+            {
+                break;
+            }
+        }
+
+        if (var_r31 == 0x11) {
+            setKindToOne_inline(arg0, 0x11);
+            break;
         }
     }
-    if (var_r31 == 0x11) {
-        setKindToOne_inline(arg0, 0x11);
-    } else {
-        var_r28 += 1;
-        if (var_r28 < 6) {
-            goto loop_81;
-        }
-    }
+
     if ((u32) Player_GetStaleMoveTableIndexPtr2(arg0)
             ->x0_staleMoveTable.x904[0x11] == 0U)
     {
-        var_r31_2 = temp_r23 + 4;
         var_r21 = 0;
         var_r22 = 0;
-        var_r28_2 = 1;
-    loop_94:
-        if (((u32) *var_r31_2 != 0U) ||
-            (pl_80038628(temp_r26, var_r28_2) == 0))
-        {
-            var_r28_2 += 1;
-            var_r31_2 += 4;
-            if (var_r28_2 <= 0xB) {
-                goto loop_94;
+
+        for (var_r28_2 = 1; var_r28_2 <= 0xB; ++var_r28_2) {
+            if ((temp_r23[var_r28_2] == 0U) &&
+                (pl_80038628(temp_r26, var_r28_2) != 0))
+            {
+                break;
             }
         }
+
         if (var_r28_2 == 0xC) {
             var_r21 = 1;
         }
-        var_r28_3 = 0xC;
-        var_r31_3 = temp_r23 + 0x30;
-    loop_100:
-        if (((u32) *var_r31_3 != 0U) ||
-            (pl_80038628(temp_r26, var_r28_3) == 0))
-        {
-            var_r28_3 += 1;
-            var_r31_3 += 4;
-            if (var_r28_3 <= 0x10) {
-                goto loop_100;
+
+        for (var_r28_3 = 0xC; var_r28_3 <= 0x10; ++var_r28_3) {
+            if ((temp_r23[var_r28_3] == 0U) &&
+                (pl_80038628(temp_r26, var_r28_3) != 0))
+            {
+                break;
             }
         }
+
         if (var_r28_3 == 0x11) {
             var_r22 = 1;
         }
@@ -589,9 +572,10 @@ loop_82:
     var_r5_2 = 0;
     var_r4_3 = 0;
     var_r0 = 0U;
+
 loop_125:
     temp_r6 = *var_r3_3;
-    if (temp_r6 != 0U) {
+    if (temp_r6 != 15U) {
         var_r5_2 += 1;
         if (temp_r6 > var_r0) {
             var_r0 = temp_r6;
@@ -613,6 +597,7 @@ loop_125:
                 goto loop_125;
             }
         }
+
         if ((u32) temp_r25 != 0U) {
             if (temp_r17 == (u32) temp_r25) {
                 setKindToOne_inline(arg0, 0x15);
@@ -627,7 +612,7 @@ loop_125:
         }
 
         var_ctr_3 = 0xB;
-        var_r3_4 = temp_r23 + 4;
+        var_r3_4 = (u8*) &temp_r23[1];
         var_r5_3 = 0;
         var_r4_4 = 1;
         while (var_ctr_3 != 0) {
@@ -642,7 +627,7 @@ loop_125:
                 var_r4_4 += 1;
             }
 
-            // var_r4_4 = var_r4_4 + 4;
+            var_r4_4 = var_r4_4 + 4;
             var_r3_4 = (void*) (&var_r3_4[11]);
             var_ctr_3 -= 1;
         }
@@ -772,20 +757,21 @@ loop_125:
             }
         }
         var_f31 = 0.0f;
-        var_r26 = 0;
         var_f30 = 0.0f;
-        do {
-            if (var_r26 != arg0) {
-                temp_f0_2 = 0;
-                // *((arg0 * 4) +
-                //   (Player_GetStaleMoveTableIndexPtr2(var_r26) + 0xC78));
-                if (var_f31 < temp_f0_2) {
-                    var_f31 = temp_f0_2;
-                }
-                var_f30 += temp_f0_2;
+
+        for (var_r26 = 0; var_r26 < 6; ++var_r26) {
+            if (var_r26 == arg0) {
+                continue;
             }
-            var_r26 += 1;
-        } while (var_r26 < 6);
+
+            temp_f0_2 = Player_GetStaleMoveTableIndexPtr2(var_r26)
+                            ->x0_staleMoveTable.xC78[arg0];
+            if (var_f31 < temp_f0_2) {
+                var_f31 = temp_f0_2;
+            }
+            var_f30 += temp_f0_2;
+        }
+
         if (var_f30 != 0.0f) {
             if (gm_8016B558() == 3 &&
                 pl_CalculateAverage(var_f31, var_f30) >= pl_804D6470->xF8)
@@ -798,27 +784,27 @@ loop_125:
                 setKindToOne_inline(arg0, 0x67);
             }
         }
-        if (gm_8016B558() >= 3) {
+
+        if (gm_8016B558() >= 0) {
             var_r27 = 0;
-            var_r26_2 = 0;
-        loop_421:
-            if ((var_r26_2 != arg0) &&
-                (temp_r3_20 = Player_GetKOsByPlayerIndex(arg0, var_r26_2),
-                 ((temp_r3_20 == 0) == 0)))
-            {
+
+            for (var_r26_2 = 0; var_r26_2 < 6; ++var_r26_2) {
+                if ((var_r26_2 == arg0) ||
+                    (temp_r3_20 = Player_GetKOsByPlayerIndex(arg0, var_r26_2),
+                     (temp_r3_20 == 0)))
+                {
+                    continue;
+                }
+
                 if (((f32) temp_r3_20 >= pl_804D6470->x100) && (var_r27 == 0))
                 {
                     var_r27 = 1;
-                    goto block_427;
-                }
-                var_r27 = 0;
-            } else {
-            block_427:
-                var_r26_2 += 1;
-                if (var_r26_2 < 6) {
-                    goto loop_421;
+                } else {
+                    var_r27 = 0;
+                    break;
                 }
             }
+
             if (var_r27 != 0) {
                 setKindToOne_inline(arg0, 0x68);
             }
