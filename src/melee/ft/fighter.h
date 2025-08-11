@@ -28,8 +28,8 @@
 /* 068E98 */ Fighter_GObj* Fighter_Create(struct S_TEMP1* input);
 /* 0693AC */ void Fighter_ChangeMotionState(Fighter_GObj* gobj,
                                             FtMotionId msid, MotionFlags flags,
-                                            float anim_start, float anim_speed,
-                                            float anim_blend,
+                                            f32 anim_start, f32 anim_speed,
+                                            f32 anim_blend,
                                             Fighter_GObj* arg3);
 /* 06A1BC */ void Fighter_8006A1BC(Fighter_GObj* gobj);
 /* 06A360 */ void Fighter_8006A360(Fighter_GObj* gobj);
@@ -53,7 +53,7 @@
 /* 06CFE0 */ void Fighter_8006CFE0(Fighter_GObj* gobj);
 /* 06D044 */ void Fighter_UnkRecursiveFunc_8006D044(Fighter_GObj* gobj);
 /* 06D10C */ void Fighter_8006D10C(Fighter_GObj* gobj);
-/* 06D1EC */ void Fighter_UnkProcessShieldHit_8006D1EC(Fighter_GObj* gobj);
+/* 06D1EC */ void Fighter_ProcessHit_8006D1EC(Fighter_GObj* gobj);
 /* 06D9AC */ void Fighter_8006D9AC(Fighter_GObj* gobj);
 /* 06D9EC */ void Fighter_UnkCallCameraCallback_8006D9EC(Fighter_GObj* gobj);
 /* 06DA4C */ void Fighter_8006DA4C(Fighter_GObj* gobj);

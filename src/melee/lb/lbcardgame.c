@@ -1,5 +1,8 @@
-#include "lbcardgame.static.h"
 #include "lbcardgame.h"
+
+#include "lbcardgame.static.h"
+
+#include "un/un_3028.h"
 
 #include <dolphin/card.h>
 #include <dolphin/os.h>
@@ -11,7 +14,7 @@
 #include <sysdolphin/baselib/gobjproc.h>
 #include <sysdolphin/baselib/hsd_3AA7.h>
 #include <sysdolphin/baselib/jobj.h>
-#include <melee/gm/gm_1601.h>
+#include <melee/gm/gm_unsplit.h>
 #include <melee/gm/gmmain_lib.h>
 #include <melee/lb/lb_0192.h>
 #include <melee/lb/lbarchive.h>
@@ -258,7 +261,7 @@ void lb_8001CF18(void)
     if (lb_80433318.x64 != NULL) {
         HSD_JObj* jobj;
         HSD_GObj* gobj = GObj_Create(0x18, 0x3D, 0);
-        HSD_CObj* cobj = HSD_CObjLoadDesc(lb_80433318.x64->cameras[0]);
+        HSD_CObj* cobj = HSD_CObjLoadDesc(lb_80433318.x64->cameras[0].desc);
         HSD_GObjObject_80390A70(gobj, HSD_GObj_804D784B, cobj);
         GObj_SetupGXLinkMax(gobj, fn_8001CEE4, 0xE);
         gobj->gxlink_prios = 0x80000;
@@ -281,9 +284,9 @@ void lb_8001CF18(void)
 void lb_8001D164(int arg0)
 {
     if (lb_80433318.x5C == 0) {
-        lbArchive_80016DBC("LbMcGame.", (void**) &lb_80433318.x5C,
-                           "MemCardIconData", 0);
-        lbArchive_80016DBC("NtMemAc", (void**) &lb_80433318.x64,
+        lbArchive_80016DBC("LbMcGame.", &lb_80433318.x5C, "MemCardIconData",
+                           0);
+        lbArchive_80016DBC("NtMemAc", &lb_80433318.x64,
                            "ScNtcCommon_scene_data", 0);
         lb_80433318.x60 = arg0;
         lb_80433318.enable = 1;

@@ -1,6 +1,3 @@
-#undef __FILE__
-#define __FILE__ "ftyoshi.c"
-
 #include <placeholder.h>
 
 #include "forward.h"
@@ -28,6 +25,9 @@
 #include <baselib/aobj.h>
 #include <baselib/debug.h>
 #include <baselib/mobj.h>
+
+#undef __FILE__
+#define __FILE__ "ftyoshi.c"
 
 MotionState ftYs_Init_MotionStateTable[ftYs_MS_SelfCount] = {
     {
@@ -351,7 +351,7 @@ extern char* ftYs_Unk2_804D3E78;
 /// https://decomp.me/scratch/ufrFK
 void ftYs_Init_8012B6E8(Fighter* fp, struct S_UNK_YOSHI1* unk_struct_arg)
 {
-    u8 _[20];
+    u8 _[12];
 
     struct S_UNK_YOSHI1* unk_struct1;
     s32* ptr2EndIndex;
@@ -538,15 +538,15 @@ void ftYs_Init_8012BDA0(Fighter_GObj* gobj)
     Fighter* fp = GET_FIGHTER(gobj);
     PAD_STACK(4 * 2);
     {
-        struct UNK_SAMUS_S2 foo;
+        ftHurtboxInit hurt;
         PAD_STACK(4 * 4);
         ftColl_8007B0C0(gobj, Intangible);
-        foo.parts[0] = fp->ft_data->x8->x11;
-        foo.parts[1] = FtPart_TransN;
-        foo.parts[2] = FtPart_TransN;
-        foo.vec1 = foo.vec2 = ftYs_Unk1_803B75C0;
-        foo.scale = 1;
-        ftColl_8007B5AC(fp, fp->hurt_capsules, &foo);
+        hurt.bone_idx = fp->ft_data->x8->x11;
+        hurt.height = HurtHeight_Mid;
+        hurt.is_grabbable = true;
+        hurt.a_offset = hurt.b_offset = ftYs_Unk1_803B75C0;
+        hurt.scale = 1;
+        ftColl_HurtboxInit(fp, &fp->hurt_capsules[0], &hurt);
     }
 }
 
@@ -559,7 +559,7 @@ void ftYs_Init_8012BE3C(HSD_GObj* gobj)
     ftColl_8007B0C0(gobj, 0);
     xBC = &fp->co_attrs.xBC;
     {
-        Fighter_Part part = ftParts_8007500C(fp, 4);
+        Fighter_Part part = ftParts_GetBoneIndex(fp, 4);
         HSD_JObj* jobj = fp->parts[part].joint;
         Fighter* fp1 = GET_FIGHTER(gobj);
         efAsync_Spawn(gobj, &fp1->x60C, 4, 1231, jobj, xBC);

@@ -11,7 +11,7 @@
 #include "db/db.h"
 #include "ef/efsync.h"
 #include "ft/ftlib.h"
-#include "gm/gm_1601.h"
+#include "gm/gm_unsplit.h"
 #include "gr/ground.h"
 #include "gr/stage.h"
 #include "it/it_26B1.h"
@@ -944,14 +944,14 @@ bool it_8026DC24(Item_GObj* gobj)
         it_80274658(gobj, it_804D6D28->x74_float);
         it_80275DFC(gobj);
     }
-    if (fabs_inline(ip->x40_vel.x) <= 0.00001f) {
+    if (ABS(ip->x40_vel.x) <= 0.00001f) {
         ip->x40_vel.x = 0.0f;
     }
-    if (fabs_inline(ip->x40_vel.y) <= 0.00001f) {
+    if (ABS(ip->x40_vel.y) <= 0.00001f) {
         ip->x40_vel.y = 0.0f;
     }
-    if (fabs_inline(ip->x40_vel.x) <= attr->x5c) {
-        if ((fabs_inline(ip->x40_vel.y) <= attr->x5c)) {
+    if (ABS(ip->x40_vel.x) <= attr->x5c) {
+        if ((ABS(ip->x40_vel.y) <= attr->x5c)) {
             goto block_18a8;
         }
     }
@@ -1711,7 +1711,7 @@ bool it_8026ECE0(Item_GObj* gobj, u32 arg1)
             chk = true;
         }
         if (ip->xDAA_flag.b3 && ip->xDD0_flag.b0 &&
-            (lb_800149E0(&ip->xACC_itemHurtbox[1].b_pos.z, arg1) != false))
+            (lb_800149E0(&ip->xB54.x, arg1) != false))
         {
             chk = true;
         }
@@ -2077,7 +2077,8 @@ bool it_8026F8B4(Item_GObj* item_gobj, Vec3* arg1, Vec3* arg2, bool chk)
     if (HSD_Randi(it_804D6D28->x138) != 0) {
         return false;
     }
-    rand_int = HSD_Randi(it_804D6D28->x13C) + it_804D6D28->x140;
+    rand_int =  HSD_Randi(it_804D6D28->x13C) ;
+    rand_int += it_804D6D28->x140;
     if (chk == false) {
         arg2->x = it_804D6D28->x54_float * (2.0f * (HSD_Randf() - 0.5f));
         arg2->y = it_804D6D28->x144;

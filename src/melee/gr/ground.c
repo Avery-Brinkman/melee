@@ -1,8 +1,3 @@
-#include <placeholder.h>
-
-#include "gr/forward.h"
-#include "gr/inlines.h"
-
 #include "ground.h"
 
 #include "grcorneria.h"
@@ -17,14 +12,21 @@
 #include "platform.h"
 #include "stage.h"
 
+#include <placeholder.h>
+
 #include "cm/camera.h"
 #include "ft/ftdevice.h"
 #include "ft/ftlib.h"
-#include "gm/gm_1601.h"
+#include "gm/gm_unsplit.h"
+
+#include "gr/forward.h"
+
+#include "gr/inlines.h"
 #include "it/it_266F.h"
 #include "it/it_26B1.h"
 #include "it/it_2725.h"
 #include "it/items/it_27CF.h"
+#include "it/items/itcoin.h"
 #include "it/types.h"
 #include "lb/lb_00B0.h"
 #include "lb/lb_00F9.h"
@@ -36,9 +38,12 @@
 #include "mp/mplib.h"
 #include "mp/types.h"
 #include "pl/player.h"
+#include "sc/types.h"
 #include "ty/toy.h"
 #include "ty/tydisplay.h"
+#include "ty/tylist.h"
 #include "un/un_2FC9.h"
+#include "un/un_3028.h"
 
 #include <common_structs.h>
 #include <math.h>
@@ -65,7 +70,7 @@
 #include <baselib/spline.h>
 #include <baselib/wobj.h>
 
-/* 1BFFA8 */ static void Ground_801BFFA8(void);
+/* 1BFFA8 */ static void Ground_OnStart(void);
 /* 1BFFAC */ static void Ground_801BFFAC(bool);
 /* 1C0A70 */ static bool Ground_801C0A70(Vec3* pos);
 /* 1C0C2C */ static void Ground_801C0C2C(HSD_GObj*);
@@ -73,13 +78,13 @@
 /* 1C1D38 */ static void Ground_801C1D38(HSD_GObj*);
 /* 1C1E2C */ static void Ground_801C1E2C(HSD_GObj* gobj, int code);
 /* 1C1E94 */ static void Ground_801C1E94(void);
-/* 1C20E0 */ static UNK_T Ground_801C20E0(UnkArchiveStruct*, UNK_T);
+/* 1C20E0 */ UNK_T Ground_801C20E0(UnkArchiveStruct*, UNK_T);
 /* 1C24F8 */ static bool Ground_801C24F8(s32, u32, s32*);
-/* 1C28CC */ static void Ground_801C28CC(void*, s32);
+/* 1C28CC */ void Ground_801C28CC(void*, s32);
 /* 1C2BBC */ static void Ground_801C2BBC(HSD_GObj*, s32);
 /* 1C2BD4 */ static void Ground_801C2BD4(void*);
-/* 1C34AC */ static void Ground_801C34AC(s32, HSD_JObj*, struct HSD_Joint*);
-/* 1C466C */ static void Ground_801C466C(void);
+/* 1C34AC */ void Ground_801C34AC(s32, HSD_JObj*, struct HSD_Joint*);
+/* 1C466C */ void Ground_801C466C(void);
 /* 1C55AC */ static void Ground_801C55AC(Ground*);
 /* 1C5878 */ static void Ground_801C5878(void);
 
@@ -89,10 +94,10 @@ static StageData Ground_803DFEA8 = {
     0,
     NULL,
     NULL,
-    Ground_801BFFA8,
+    Ground_OnStart,
     Ground_801BFFAC,
-    Ground_801BFFA8,
-    Ground_801BFFA8,
+    Ground_OnStart,
+    Ground_OnStart,
     NULL,
     NULL,
     NULL,
@@ -173,7 +178,7 @@ static inline f32 fabsf(f32 x)
     }
 }
 
-static void Ground_801BFFA8(void) {}
+static void Ground_OnStart(void) {}
 
 static void Ground_801BFFAC(bool arg0) {}
 
@@ -275,7 +280,14 @@ f32 Ground_801C0498(void)
     }
 }
 
-static char get_userdata_ground[] = "%s:%d: couldn t get user data(Ground)\n";
+static void* alloc_user_data_ground(void)
+{
+    Ground* temp_r3 = HSD_MemAlloc(sizeof(Ground));
+    if (temp_r3 == NULL) {
+        OSReport("%s:%d: couldn t get user data(Ground)\n", __FILE__, 0x1DA);
+    }
+    return temp_r3;
+}
 
 void Ground_801C04BC(f32 arg8)
 {
@@ -655,7 +667,7 @@ void Ground_801C0C2C(HSD_GObj* arg0)
 
 void Ground_801C0F78(StructPairWithStageID* pair)
 {
-    Ground_803DFEDC[pair->stage_id]->callback2();
+    Ground_803DFEDC[pair->stage_id]->OnLoad();
 }
 
 void Ground_801C0FB8(StructPairWithStageID* pair)
@@ -666,7 +678,7 @@ void Ground_801C0FB8(StructPairWithStageID* pair)
         void (*unk8)(s32);
     }* cur;
     void* next;
-    Ground_803DFEDC[pair->stage_id]->callback3();
+    Ground_803DFEDC[pair->stage_id]->OnStart();
     for (cur = stage_info.x6A4; cur != NULL; cur = next) {
         next = cur->unk0;
         cur->unk8(cur->unk4);
@@ -769,56 +781,51 @@ HSD_JObj* Ground_801C13D0(s32 arg0, s32 depth)
 static char Ground_804D44F8[8] = "archive";
 
 #define assert_line(line, cond)                                               \
-    ((cond) ? (void) 0 : __assert("ground.c", line, #cond))
+    ((cond) ? (void) 0 : __assert(__FILE__, line, #cond))
 
-inline void* alloc_user_data_ground(void)
+static HSD_JObj* get_jobj_inline(float phi_f0)
 {
-    Ground* temp_r3 = HSD_MemAlloc(sizeof(Ground));
-    if (temp_r3 == NULL) {
-        OSReport("%s:%d: couldn t get user data(Ground)\n", "ground.c", 0x1DA);
+    HSD_JObj* jobj;
+    HSD_Joint sp14 = Ground_803B7E0C;
+    sp14.scale.x = sp14.scale.y = sp14.scale.z = phi_f0;
+    jobj = HSD_JObjLoadJoint(&sp14);
+    if (jobj == NULL) {
+        OSReport("%s:%d: couldn t get jobj\n", __FILE__, 0x4C4);
+        while (1) {
+        }
     }
-    return temp_r3;
+    return jobj;
 }
 
 HSD_GObj* Ground_801C14D0(int map_id)
 {
+    StageInfo* stageinfo = &stage_info;
+    float phi_f0;
     HSD_JObj* new_var;
-    u8 unused[0x10];
-    HSD_Joint sp58;
-    u8 unused2[0x4];
-    HSD_Joint sp14;
-    HSD_JObj* temp_r23;
     HSD_GObj* new_var2;
     HSD_CObj* temp_r27;
     HSD_JObj* temp_r3_11;
-    HSD_JObj* temp_r3_6;
     HSD_Joint* temp_r24;
+    HSD_JObj* temp_r23;
     HSD_GObj* gobj;
     UnkArchiveStruct* archive;
     HSD_JObj* temp_r3_8;
     Ground* temp_r3;
-    Ground* temp_r6;
-    float phi_f0;
     s16* phi_r23;
     int phi_r24;
-    StageInfo* stageinfo = &stage_info;
     int i;
 
     gobj = GObj_Create(HSD_GOBJ_CLASS_STAGE, 5, 0);
     if (gobj == NULL) {
-        OSReport("%s:%d: couldn t get gobj!\n", "ground.c", 0x522);
+        OSReport("%s:%d: couldn t get gobj!\n", __FILE__, 0x522);
         return NULL;
     }
-    temp_r3 = (0, HSD_MemAlloc(sizeof(Ground)));
+    temp_r3 = alloc_user_data_ground();
     if (temp_r3 == NULL) {
-        OSReport("%s:%d: couldn t get user data(Ground)\n", "ground.c", 0x1DA);
-    }
-    temp_r6 = temp_r3;
-    if (temp_r6 == NULL) {
         HSD_GObjPLink_80390228(gobj);
         return NULL;
     }
-    GObj_InitUserData(gobj, 3, Ground_801C0478, temp_r6);
+    GObj_InitUserData(gobj, 3, Ground_801C0478, temp_r3);
     temp_r3->map_id = map_id;
     temp_r3->gobj = gobj;
     temp_r3->x10_flags.b0 = 0;
@@ -854,21 +861,11 @@ HSD_GObj* Ground_801C14D0(int map_id)
         } else {
             phi_f0 = 1.0f;
         }
-        sp58 = Ground_803B7E0C;
-        sp58.scale.z = phi_f0;
-        sp58.scale.y = phi_f0;
-        sp58.scale.x = phi_f0;
-        temp_r3_6 = HSD_JObjLoadJoint(&sp58);
-        if (temp_r3_6 == NULL) {
-            OSReport("%s:%d: couldn t get jobj\n", "ground.c", 0x4C4);
-            while (1) {
-            }
-        }
-        new_var = temp_r3_6;
+        new_var = get_jobj_inline(phi_f0);
         HSD_JObjAddNext(temp_r23, new_var);
         if (new_var == NULL) {
             HSD_GObjPLink_80390228(gobj);
-            OSReport("%s:%d: couldn t get jobj\n", "ground.c", 0x55D);
+            OSReport("%s:%d: couldn t get jobj\n", __FILE__, 0x55D);
             return NULL;
         }
         if (Ground_803DFEDC[stageinfo->internal_stage_id]
@@ -894,30 +891,21 @@ HSD_GObj* Ground_801C14D0(int map_id)
             }
         }
     } else {
-        temp_r3_6 = HSD_JObjAlloc();
-        if (temp_r3_6 != NULL) {
-            PSMTXIdentity(temp_r3_6->mtx);
-            temp_r3_6->scl = NULL;
+        new_var = HSD_JObjAlloc();
+        if (new_var != NULL) {
+            PSMTXIdentity(new_var->mtx);
+            new_var->scl = NULL;
         }
         if (stageinfo->param != NULL) {
             phi_f0 = stageinfo->param->x0;
         } else {
             phi_f0 = 1.0f;
         }
-        sp14 = Ground_803B7E0C;
-        sp14.scale.z = phi_f0;
-        sp14.scale.y = phi_f0;
-        sp14.scale.x = phi_f0;
-        temp_r3_11 = HSD_JObjLoadJoint(&sp14);
-        if (temp_r3_11 == NULL) {
-            OSReport("%s:%d: couldn t get jobj\n", "ground.c", 0x4C4);
-            while (1) {
-            }
-        }
-        HSD_JObjAddNext(temp_r3_6, temp_r3_11);
+        temp_r3_11 = get_jobj_inline(phi_f0);
+        HSD_JObjAddNext(new_var, temp_r3_11);
         if (temp_r3_11 == NULL) {
             HSD_GObjPLink_80390228(gobj);
-            OSReport("%s:%d: couldn t get jobj\n", "ground.c", 0x598);
+            OSReport("%s:%d: couldn t get jobj\n", __FILE__, 0x598);
             return NULL;
         }
         HSD_GObjObject_80390A70(gobj, HSD_GObj_804D7849, temp_r3_11);
@@ -928,30 +916,21 @@ HSD_GObj* Ground_801C14D0(int map_id)
     return gobj;
 }
 
-static char get_jobj[] = "%s:%d: couldn t get jobj\n";
-static char get_gobj[] = "%s:%d: couldn t get gobj!\n";
-
 HSD_GObj* Ground_801C1A20(HSD_Joint* arg0, s32 arg1)
 {
     HSD_GObj* temp_r30;
     HSD_JObj* temp_r29;
     HSD_JObj* temp_r3_4;
-    void* temp_r3;
     f32 phi_f0;
     Ground* gp;
     int i;
-    u32 _;
-    HSD_Joint sp18;
+
     temp_r30 = GObj_Create(HSD_GOBJ_CLASS_STAGE, 5, 0);
     if (temp_r30 == NULL) {
-        OSReport(get_gobj, __FILE__, 0x5B8);
+        OSReport("%s:%d: couldn t get gobj!\n", __FILE__, 0x5B8);
         return NULL;
     }
-    temp_r3 = HSD_MemAlloc(sizeof(Ground));
-    if (temp_r3 == NULL) {
-        OSReport(get_userdata_ground, __FILE__, 0x1DA);
-    }
-    gp = temp_r3;
+    gp = alloc_user_data_ground();
     if (gp == NULL) {
         HSD_GObjPLink_80390228(temp_r30);
         return NULL;
@@ -974,22 +953,11 @@ HSD_GObj* Ground_801C1A20(HSD_Joint* arg0, s32 arg1)
     grMaterial_801C95C4(temp_r30);
     temp_r29 = HSD_JObjLoadJoint(arg0);
     Ground_801C34AC(arg1, temp_r29, arg0);
-    phi_f0 = Ground_801C0498();
-    sp18 = Ground_803B7E0C;
-    sp18.scale.z = phi_f0;
-    sp18.scale.y = phi_f0;
-    sp18.scale.x = phi_f0;
-    temp_r3_4 = HSD_JObjLoadJoint(&sp18);
-    if (temp_r3_4 == NULL) {
-        OSReport(get_jobj, __FILE__, 0x4C4);
-        while (true) {
-            continue;
-        }
-    }
+    temp_r3_4 = get_jobj_inline(Ground_801C0498());
     HSD_JObjAddNext(temp_r29, temp_r3_4);
     if (temp_r3_4 == NULL) {
         HSD_GObjPLink_80390228(temp_r30);
-        OSReport(get_jobj, __FILE__, 0x5E8);
+        OSReport("%s:%d: couldn t get jobj\n", __FILE__, 0x5E8);
         return NULL;
     }
     HSD_GObjObject_80390A70(temp_r30, HSD_GObj_804D7849, temp_r3_4);
@@ -1556,7 +1524,6 @@ bool Ground_801C2FE0(Ground_GObj* arg0)
     map_id = gr->map_id;
 
     if (Ground_804D6950[map_id] == 0) {
-
         result = false;
 
         temp_r3 = mpLib_8004D17C();
@@ -2357,13 +2324,146 @@ static void Ground_801C461C(HSD_GObj* gobj)
     Ground_801C445C(gobj->hsd_obj);
 }
 
-static void Ground_801C4640(HSD_GObj* gobj)
+static void Ground_801C4640(HSD_GObj* gobj, int unused)
 {
     HSD_LObj_803668EC(gobj->hsd_obj);
     HSD_LObjSetupInit(HSD_CObjGetCurrent());
 }
 
-/// #Ground_801C466C
+static LightList** Ground_801C466C_inline(void)
+{
+    StageCallbacks* var_r26;
+    int i;
+    int temp_r28;
+
+    temp_r28 = grDatFiles_801C6324()->unk4->unkC;
+    var_r26 = Ground_803DFEDC[stage_info.internal_stage_id]->callbacks;
+    grDatFiles_801C6324();
+
+    for (i = 0; i < temp_r28; i++) {
+        if (var_r26->flags_b0 == 1) {
+            UnkArchiveStruct* archive = grDatFiles_801C6330(i);
+            return Ground_801C20E0(archive, archive->unk4->unk8[i].x18);
+        }
+        var_r26++;
+    }
+    return NULL;
+}
+
+float Ground_803E065C[] = { 0, 0, 0, 0 };
+float Ground_803E066C[] = { 0, 0.57, 0.57, 0.57, 0 };
+
+struct a {
+    UNK_T x0;
+    UNK_T x4;
+    int x8;
+    int xC;
+    UNK_T x10;
+    UNK_T x14;
+    UNK_T x18;
+};
+
+float Ground_804D4508 = 16;
+
+struct a Ground_803E0680 = {
+    NULL, NULL, 0xD0000, -1, &Ground_803E066C, NULL, &Ground_804D4508,
+};
+
+UNK_T Ground_803E069C[] = { NULL, NULL, NULL, NULL };
+
+struct a Ground_803E06AC = { NULL, NULL, 0x40000, -1, NULL, NULL, NULL };
+
+static LightList* Ground_803E06C8[3] = { 0 };
+
+void Ground_801C466C(void)
+{
+    Vec3 sp10; /* compiler-managed */
+    HSD_GObj* temp_r3;
+    HSD_LObj* temp_r3_2;
+    HSD_LObj* var_r27;
+    LightList** var_r27_2;
+    HSD_LObj* var_r26_2;
+    LightList** var_r28_2;
+    LightList** var_r3;
+    float var_f31;
+    int temp_r28;
+
+    var_r28_2 = Ground_801C466C_inline();
+    if (var_r28_2 == NULL) {
+        var_r28_2 = Ground_803E06C8;
+    }
+    temp_r3 = GObj_Create(0xD, 3, 0);
+    if (temp_r3 == NULL) {
+        OSReport("%s:%d: couldn t get gobj\n", __FILE__, 0xEAF);
+        while (true) {
+        }
+    }
+    temp_r3_2 = lb_80011AC4(var_r28_2);
+    if (temp_r3_2 == NULL) {
+        OSReport("%s:%d: couldn t get lobj\n", __FILE__, 0xEB1);
+        while (true) {
+        }
+    }
+    HSD_GObjObject_80390A70(temp_r3, HSD_GObj_804D784A, temp_r3_2);
+    GObj_SetupGXLink(temp_r3, Ground_801C4640, 0, 0);
+    var_r27 = temp_r3_2;
+    if (stage_info.param != NULL) {
+        var_f31 = stage_info.param->x0;
+    } else {
+        var_f31 = 1.0F;
+    }
+    while (var_r27 != NULL) {
+        if (HSD_LObjGetPosition(var_r27, &sp10) != 0) {
+            sp10.x *= var_f31;
+            sp10.y *= var_f31;
+            sp10.z *= var_f31;
+            HSD_LObjSetPosition(var_r27, &sp10);
+        }
+        if (HSD_LObjGetInterest(var_r27, &sp10) != 0) {
+            sp10.x *= var_f31;
+            sp10.y *= var_f31;
+            sp10.z *= var_f31;
+            HSD_LObjSetInterest(var_r27, &sp10);
+        }
+        if (var_r27 == NULL) {
+            var_r27 = NULL;
+        } else {
+            var_r27 = var_r27->next;
+        }
+    }
+    HSD_LObjReqAnimAll(temp_r3_2, 0.0F);
+    HSD_ForeachAnim(temp_r3_2, LOBJ_TYPE, ALL_TYPE_MASK, HSD_AObjSetRate,
+                    AOBJ_ARG_AF, 1.0);
+    var_r27_2 = var_r28_2;
+    var_r26_2 = temp_r3_2;
+    if ((*var_r28_2)->anims != NULL) {
+        while (var_r26_2 != NULL) {
+            if (Ground_801C43C4((*var_r27_2)->anims[0]) != 0) {
+                if (var_r26_2->aobj != NULL) {
+                    HSD_AObjSetFlags(var_r26_2->aobj, 0x20000000);
+                }
+                if (var_r26_2->position != NULL) {
+                    HSD_ForeachAnim(var_r26_2->position, WOBJ_TYPE,
+                                    ALL_TYPE_MASK, HSD_AObjSetFlags,
+                                    AOBJ_ARG_AU, 0x20000000);
+                }
+                if (var_r26_2->interest != NULL) {
+                    HSD_ForeachAnim(var_r26_2->interest, WOBJ_TYPE,
+                                    ALL_TYPE_MASK, HSD_AObjSetFlags,
+                                    AOBJ_ARG_AU, 0x20000000);
+                }
+            }
+            if (var_r26_2 == NULL) {
+                var_r26_2 = NULL;
+            } else {
+                var_r26_2 = var_r26_2->next;
+            }
+            var_r27_2 += 1;
+        }
+    }
+    HSD_LObjAnimAll(temp_r3_2);
+    HSD_GObjProc_8038FD54(temp_r3, Ground_801C461C, 0);
+}
 
 HSD_GObj* Ground_801C498C(void)
 {
@@ -2376,15 +2476,13 @@ HSD_GObj* Ground_801C498C(void)
     return gobj;
 }
 
-extern UNK_T Ground_803E06C8[];
-
-UNK_T Ground_801C49B4(void)
+LightList** Ground_801C49B4(void)
 {
     UnkArchiveStruct* archive = grDatFiles_801C6324();
     if (stage_info.map_plit != NULL) {
         return Ground_801C20E0(archive, stage_info.map_plit);
     }
-    return &Ground_803E06C8;
+    return Ground_803E06C8;
 }
 
 void* Ground_801C49F8(void)
@@ -2553,44 +2651,42 @@ void Ground_801C4E70(HSD_JObj* arg0, HSD_JObj* arg1, HSD_JObj* arg2,
     stage_info.x16C = vec;
 }
 
-float Ground_803E065C[] = { 0, 0, 0, 0 };
-float Ground_803E066C[] = { 0, 0.57, 0.57, 0.57, 0 };
-
 struct Node {
     float* x0;
     UNK_T x4;
 };
 
 struct Node Ground_804D4500 = { Ground_803E065C, NULL };
-float Ground_804D4508 = 16;
-struct a {
-    UNK_T x0;
-    UNK_T x4;
-    int x8;
-    int xC;
-    UNK_T x10;
-    UNK_T x14;
-    UNK_T x18;
-};
-
-struct a Ground_803E0680 = {
-    NULL, NULL, 0xD0000, -1, &Ground_803E066C, NULL, &Ground_804D4508,
-};
-
-UNK_T Ground_803E069C[] = { NULL, NULL, NULL, NULL };
 
 SDATA UNK_T Ground_804D450C[] = { &Ground_803E0680, &Ground_804D4500 };
 SDATA UNK_T Ground_804D4514[] = { &Ground_803E069C, NULL };
-
-struct a Ground_803E06AC = { NULL, NULL, 0x40000, -1, NULL, NULL, NULL };
-
 SDATA UNK_T Ground_804D451C[] = { &Ground_803E06AC, &Ground_804D4514 };
 
 SDATA char Ground_804D4524[] = "fog.h";
 SDATA char Ground_804D452C[] = "fog";
 
+static inline float vec_len(Vec3* v)
+{
+    float x2 = v->x * v->x;
+    float y2 = v->y * v->y;
+    float z2 = v->z * v->z;
+    return sqrtf(x2 + y2 + z2);
+}
+
 void Ground_801C4FAC(HSD_CObj* cobj)
 {
+    Vec3 d;
+    float dx2;
+    float dy2;
+    float dz2;
+    HSD_Fog* fog;
+
+    float phi_f1;
+    float phi_f2;
+    float temp_f3_2;
+    float phi_f31;
+    float phi_f30;
+
     Vec3 sp74;
     Vec3 sp68;
     Vec3 sp5C;
@@ -2599,20 +2695,6 @@ void Ground_801C4FAC(HSD_CObj* cobj)
     Vec3 sp38;
     Vec3 sp2C;
     Vec3 sp20;
-    float dx;
-    float dy;
-    float dz;
-    float dx2, dy2, dz2;
-    float temp_f5;
-    HSD_Fog* fog;
-
-    float phi_f1;
-    float phi_f2;
-    float temp_f3_2;
-    float phi_f0;
-    float phi_f31;
-    float phi_f30;
-    float phi_f30_2;
 
     if (stage_info.unk8C.b3) {
         HSD_CObjGetEyeVector(cobj, &sp74);
@@ -2630,16 +2712,19 @@ void Ground_801C4FAC(HSD_CObj* cobj)
             phi_f1 = temp_f3_2 * fabsf(sp74.x);
             phi_f2 = temp_f3_2 * fabsf(sp74.z);
             sp50.x *= phi_f1;
-            sp44.x *= phi_f1;
-            sp68.x *= phi_f2;
-            sp5C.x *= phi_f2;
             sp50.y *= phi_f1;
-            sp44.y *= phi_f1;
-            sp68.y *= phi_f2;
-            sp5C.y *= phi_f2;
             sp50.z *= phi_f1;
+
+            sp44.x *= phi_f1;
+            sp44.y *= phi_f1;
             sp44.z *= phi_f1;
+
+            sp68.x *= phi_f2;
+            sp68.y *= phi_f2;
             sp68.z *= phi_f2;
+
+            sp5C.x *= phi_f2;
+            sp5C.y *= phi_f2;
             sp5C.z *= phi_f2;
             PSVECAdd(&sp68, &sp50, &sp38);
             PSVECAdd(&sp5C, &sp44, &sp2C);
@@ -2651,29 +2736,28 @@ void Ground_801C4FAC(HSD_CObj* cobj)
         if (stage_info.x12C != NULL) {
             fog = GET_FOG(stage_info.x12C);
             if (fog != NULL) {
-                dx = sp38.x - sp20.x;
-                dy = sp38.y - sp20.y;
-                dz = sp38.z - sp20.z;
-                dx2 = dx * dx;
-                dy2 = dy * dy;
-                dz2 = dz * dz;
+                d.x = sp38.x - sp20.x;
+                d.y = sp38.y - sp20.y;
+                d.z = sp38.z - sp20.z;
+                dx2 = d.x * d.x;
+                dy2 = d.y * d.y;
+                dz2 = d.z * d.z;
                 phi_f31 = sqrtf(dx2 + dy2 + dz2);
-                dx = sp2C.x - sp20.x;
-                dy = sp2C.y - sp20.y;
-                dz = sp2C.z - sp20.z;
-                dx2 = dx * dx;
-                dy2 = dy * dy;
-                dz2 = dz * dz;
+                d.x = sp2C.x - sp20.x;
+                d.y = sp2C.y - sp20.y;
+                d.z = sp2C.z - sp20.z;
+                dx2 = d.x * d.x;
+                dy2 = d.y * d.y;
+                dz2 = d.z * d.z;
                 phi_f30 = sqrtf(dx2 + dy2 + dz2);
                 if (phi_f30 < 10) {
                     phi_f30 = 10;
                 }
-                phi_f30_2 = phi_f30;
                 if (phi_f31 < 5) {
                     phi_f31 = 5;
                 }
                 if (phi_f31 > phi_f30) {
-                    phi_f30_2 = 1.0f + phi_f31;
+                    phi_f30 = 1.0f + phi_f31;
                 }
                 if (fog == NULL) {
                     __assert("fog.h", 0xB4, "fog");
@@ -2683,7 +2767,7 @@ void Ground_801C4FAC(HSD_CObj* cobj)
                 if (fog == NULL) {
                     __assert("fog.h", 0xBF, "fog");
                 }
-                fog->end = phi_f30_2;
+                fog->end = phi_f30;
             }
         }
     }

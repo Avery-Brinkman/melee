@@ -1,9 +1,14 @@
-#include "gm_1601.h"
+#include "gmresultplayer.h"
 
-#include "gm_1601.static.h"
+#include <melee/lb/lb_00B0.h>
+#include <melee/gm/types.h>
 
+/* 46E38C */ static int lbl_8046E38C[4];
 
-/// #gm_80177724
+void gm_80177724(struct ResultsMatchInfo* arg0)
+{
+    memzero(arg0, sizeof(*arg0));
+}
 
 /// #fn_80177748
 

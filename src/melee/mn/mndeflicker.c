@@ -5,7 +5,7 @@
 #include "lb/lb_00F9.h"
 #include "lb/lbarchive.h"
 #include "mn/inlines.h"
-#include "mn/mn_2295.h"
+#include "mn/mnmain.h"
 #include "mn/types.h"
 #include "sc/types.h"
 
@@ -53,7 +53,7 @@ void mnDeflicker_8024A168(HSD_GObj* gobj)
         Menu_DecrementAnimTimer();
         return;
     }
-    events = Menu_GetEvents();
+    events = Menu_GetAllEvents();
     if ((events & MenuEvent_Back)) {
         sfxBack();
         gmMainLib_8015F4F4(

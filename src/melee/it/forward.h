@@ -9,7 +9,6 @@ typedef struct BobOmbRain BobOmbRain;
 typedef struct BoneDynamicsDesc BoneDynamicsDesc;
 typedef struct CameraBoxFlags CameraBoxFlags;
 typedef struct DynamicBoneTable DynamicBoneTable;
-typedef struct ECB ECB;
 typedef struct flag32 flag32;
 typedef struct HSD_ObjAllocUnk HSD_ObjAllocUnk;
 typedef struct HSD_ObjAllocUnk2 HSD_ObjAllocUnk2;
@@ -103,6 +102,9 @@ typedef enum Item_HoldKinds {
 // research by VetriTheRetri
 // https://docs.google.com/spreadsheets/d/1JX2w-r2fuvWuNgGb6D3Cs4wHQKLFegZe2jhbBuIhCG8
 // Development JP name strings are listed starting at data address 0x803EA7A8
+
+#define It_Common_Start It_Kind_Capsule
+#define It_Common_End It_Kind_L_Gun_Ray
 
 typedef enum ItemKind {
     // COMMON ITEMS

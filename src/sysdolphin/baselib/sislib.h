@@ -8,6 +8,7 @@
 
 #include "baselib/archive.h"
 #include "baselib/cobj.h"
+#include "dolphin/gx/GXStruct.h"
 
 #include <dolphin/mtx.h>
 
@@ -98,8 +99,6 @@ extern SIS* HSD_SisLib_804D1124[5];
 extern u32 lbl_8040C8C0[144];
 extern u32 HSD_SisLib_8040C680[144];
 
-extern u32 HSD_SisLib_804D7968;
-extern sislib_UnkAllocData* HSD_SisLib_804D796C;
 extern sislib_UnkAllocData* HSD_SisLib_804D7970;
 extern sislib_UnkAllocData* HSD_SisLib_804D7974;
 extern HSD_Text* HSD_SisLib_804D7978;
@@ -129,7 +128,7 @@ void HSD_SisLib_803A6530(s32, s32, s32);
 void HSD_SisLib_803A6478(u8*, u8*);
 void HSD_SisLib_803A6368(HSD_Text*, s32);
 void HSD_SisLib_803A62A0(s32, char*, char*);
-s32 HSD_SisLib_803A611C(int, u32, u16, u8, u8, u8, u8, u32);
+s32 HSD_SisLib_803A611C(int, HSD_GObj*, u16, u8, u8, u8, u8, u32);
 void lbl_803A60EC(void);
 HSD_Text* HSD_SisLib_803A5ACC(int, s32, f32, f32, f32, f32, f32);
 void* HSD_SisLib_803A5798(s32);

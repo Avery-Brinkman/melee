@@ -1,6 +1,8 @@
 #ifndef MELEE_SC_TYPES_H
 #define MELEE_SC_TYPES_H
 
+#include <placeholder.h>
+
 #include "sc/forward.h" // IWYU pragma: export
 #include <baselib/forward.h>
 
@@ -23,9 +25,18 @@ struct DynamicModelDesc {
 // The basis of a rendered scene, like a stage, menu, or HUD overlay
 struct SceneDesc {
     DynamicModelDesc** models;
-    HSD_CObjDesc** cameras;
-    HSD_LightDesc** lights;
-    HSD_FogDesc** fogs;
+    struct {
+        HSD_CObjDesc* desc;
+        HSD_CameraAnim** anims;
+    }* cameras;
+    struct LightList {
+        HSD_LightDesc* desc;
+        HSD_LightAnim** anims;
+    }** lights;
+    struct {
+        HSD_FogDesc* desc;
+        HSD_CameraAnim** anims;
+    }* fogs;
 };
 
 #endif

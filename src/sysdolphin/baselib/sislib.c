@@ -24,6 +24,8 @@ static HSD_WObjDesc HSD_SisLib_8040C490 = { NULL, { 0, 0, 1 }, NULL, };
 
 static HSD_WObjDesc HSD_SisLib_8040C4A4 = { NULL, { 0, 0, 0 }, NULL, };
 
+static u32 HSD_SisLib_804D7968;
+
 static HSD_CameraDescPerspective HSD_SisLib_8040C4B8 = {
     0,
     0,
@@ -403,7 +405,7 @@ HSD_Text* HSD_SisLib_803A5ACC(int arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
     return temp_r30;
 }
 
-extern sislib_UnkAllocData* HSD_SisLib_804D796C;
+static sislib_UnkAllocData* HSD_SisLib_804D796C;
 
 void HSD_SisLib_803A5E70(void)
 {
@@ -492,7 +494,7 @@ void fn_803A60EC(void* arg0)
     }
 }
 
-s32 HSD_SisLib_803A611C(int arg0, u32 arg1, u16 arg2, u8 arg3, u8 arg4,
+s32 HSD_SisLib_803A611C(int arg0, HSD_GObj* arg1, u16 arg2, u8 arg3, u8 arg4,
                         u8 arg5, u8 arg6, u32 arg7)
 {
     int count;
@@ -524,7 +526,7 @@ s32 HSD_SisLib_803A611C(int arg0, u32 arg1, u16 arg2, u8 arg3, u8 arg4,
     temp_r27->xF = arg6;
     temp_r27->xA = arg0;
     temp_r27->x0 = NULL;
-    if (arg1 != 0) {
+    if (arg1 != NULL) {
         temp_r27->x4 = NULL;
     } else {
         temp_r27->x4 = GObj_Create(arg2, arg3, arg4);

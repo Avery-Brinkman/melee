@@ -11,7 +11,7 @@
 #include <melee/lb/lbcardgame.h>
 #include <melee/lb/lblanguage.h>
 #include <melee/mn/inlines.h>
-#include <melee/mn/mn_2295.h>
+#include <melee/mn/mnmain.h>
 #include <melee/mn/mnlanguage.h>
 
 extern HSD_Archive* mn_804D6BB8;
@@ -48,7 +48,7 @@ void mnLanguage_8024BFE0(HSD_GObj* arg0_unused)
         mn_804D6BC8.x4 = 0;
         return;
     }
-    temp_r3 = Menu_GetEvents();
+    temp_r3 = Menu_GetAllEvents();
     if (temp_r3 & 0x20) {
         lbAudioAx_80024030(0);
         mn_804A04F0.x11 = 0;

@@ -12,7 +12,7 @@
 #include "it/types.h"
 #include "lb/lb_00B0.h"
 
-static void it_802E6D60(HSD_GObj* arg0);
+static void it_2E6A_UnkMotion19_Phys(HSD_GObj* arg0);
 static bool it_802E7054(HSD_GObj* gobj);
 
 static ItemAttr it_803F8C08 = {
@@ -62,24 +62,24 @@ static ItemAttr it_803F8C08 = {
 };
 
 ItemStateTable it_803F8C8C[] = {
-    { 0, NULL, it_802E6D60, NULL },  { 1, NULL, it_802E6D60, NULL },
-    { 2, NULL, it_802E6D60, NULL },  { 3, NULL, it_802E6D60, NULL },
-    { 4, NULL, it_802E6D60, NULL },  { 5, NULL, it_802E6D60, NULL },
-    { 6, NULL, it_802E6D60, NULL },  { 7, NULL, it_802E6D60, NULL },
-    { 8, NULL, it_802E6D60, NULL },  { 9, NULL, it_802E6D60, NULL },
-    { 10, NULL, it_802E6D60, NULL }, { 11, NULL, it_802E6D60, NULL },
-    { 12, NULL, it_802E6D60, NULL }, { 13, NULL, it_802E6D60, NULL },
-    { 14, NULL, it_802E6D60, NULL }, { 15, NULL, it_802E6D60, NULL },
-    { 16, NULL, it_802E6D60, NULL }, { 17, NULL, it_802E6D60, NULL },
-    { 18, NULL, it_802E6D60, NULL }, { 19, NULL, it_802E6D60, NULL },
+    { 0, NULL, it_2E6A_UnkMotion19_Phys, NULL },  { 1, NULL, it_2E6A_UnkMotion19_Phys, NULL },
+    { 2, NULL, it_2E6A_UnkMotion19_Phys, NULL },  { 3, NULL, it_2E6A_UnkMotion19_Phys, NULL },
+    { 4, NULL, it_2E6A_UnkMotion19_Phys, NULL },  { 5, NULL, it_2E6A_UnkMotion19_Phys, NULL },
+    { 6, NULL, it_2E6A_UnkMotion19_Phys, NULL },  { 7, NULL, it_2E6A_UnkMotion19_Phys, NULL },
+    { 8, NULL, it_2E6A_UnkMotion19_Phys, NULL },  { 9, NULL, it_2E6A_UnkMotion19_Phys, NULL },
+    { 10, NULL, it_2E6A_UnkMotion19_Phys, NULL }, { 11, NULL, it_2E6A_UnkMotion19_Phys, NULL },
+    { 12, NULL, it_2E6A_UnkMotion19_Phys, NULL }, { 13, NULL, it_2E6A_UnkMotion19_Phys, NULL },
+    { 14, NULL, it_2E6A_UnkMotion19_Phys, NULL }, { 15, NULL, it_2E6A_UnkMotion19_Phys, NULL },
+    { 16, NULL, it_2E6A_UnkMotion19_Phys, NULL }, { 17, NULL, it_2E6A_UnkMotion19_Phys, NULL },
+    { 18, NULL, it_2E6A_UnkMotion19_Phys, NULL }, { 19, NULL, it_2E6A_UnkMotion19_Phys, NULL },
 };
 
 static const Vec3 it_803B8730 = { 1.0f, 1.0f, 1.0f };
 
 Item_GObj* it_802E6AEC(Ground* arg0, int arg1, int arg2, HSD_JObj* arg3,
-                       Vec3* pos, int arg5,
-                       void (*arg6)(Item_GObj*, Ground*),
-                       void (*arg7)(Item_GObj*, Ground*, Vec3*, HSD_GObj*, f32),
+                       Vec3* pos, int arg5, void (*arg6)(Item_GObj*, Ground*),
+                       void (*arg7)(Item_GObj*, Ground*, Vec3*, HSD_GObj*,
+                                    f32),
                        void (*arg8)(Item_GObj*, Ground*, HSD_GObj*))
 {
     SpawnItem spawn;
@@ -89,7 +89,7 @@ Item_GObj* it_802E6AEC(Ground* arg0, int arg1, int arg2, HSD_JObj* arg3,
 
     spawn.kind = Pokemon_Random; // 44
     if (arg3) {
-        lb_8000B1CC(arg3, 0, &spawn.prev_pos);
+        lb_8000B1CC(arg3, NULL, &spawn.prev_pos);
     } else {
         if (pos != NULL) {
             spawn.prev_pos = *pos;
@@ -105,7 +105,7 @@ Item_GObj* it_802E6AEC(Ground* arg0, int arg1, int arg2, HSD_JObj* arg3,
     spawn.x4_parent_gobj2 = spawn.x0_parent_gobj;
     spawn.x44_flag.b0 = arg5 ? 1 : 0;
     spawn.x40 = 0;
-    it_804D6D38[spawn.kind - 0x2B]->x0_common_attr = &it_803F8C08;
+    it_804D6D38[spawn.kind - It_Kind_Kuriboh]->x0_common_attr = &it_803F8C08;
 
     item_gobj = Item_80268B18(&spawn);
     if (item_gobj != NULL) {
@@ -135,7 +135,7 @@ Item_GObj* it_802E6AEC(Ground* arg0, int arg1, int arg2, HSD_JObj* arg3,
     return item_gobj;
 }
 
-void it_802E6D60(HSD_GObj* item_gobj)
+void it_2E6A_UnkMotion19_Phys(HSD_GObj* item_gobj)
 {
     Vec3 sp24;
     Quaternion sp14;
@@ -158,22 +158,24 @@ void it_802E6D60(HSD_GObj* item_gobj)
         HSD_JObjSetRotation(item_jobj, &sp14);
     } else if (item->xDD4_itemVar.it_2E6A_1.x2 != 2) {
         OSReport("%s:%d: oioi...\n", "ityaku.c", 0xD7);
-        while (true);
+        while (true)
+            ;
     }
 }
 
-bool it_802E6F7C(Item_GObj* item_gobj)
+bool it_2725_Logic117_DmgDealt(Item_GObj* item_gobj)
 {
     Item* item = GET_ITEM(item_gobj);
     if (item->xDD4_itemVar.it_2E6A_1.x14 != NULL &&
         item->xDD4_itemVar.it_2E6A_1.x10 != NULL)
     {
-        item->xDD4_itemVar.it_2E6A_1.x14(item_gobj, item->xDD4_itemVar.it_2E6A_1.x10);
+        item->xDD4_itemVar.it_2E6A_1.x14(item_gobj,
+                                         item->xDD4_itemVar.it_2E6A_1.x10);
     }
     return false;
 }
 
-bool it_802E6FC0(Item_GObj* item_gobj)
+bool it_2725_Logic117_DmgReceived(Item_GObj* item_gobj)
 {
     Vec3 sp10;
     Item* item = GET_ITEM((HSD_GObj*) item_gobj);
@@ -185,7 +187,9 @@ bool it_802E6FC0(Item_GObj* item_gobj)
     if (item->xDD4_itemVar.it_2E6A_1.x18 != NULL &&
         item->xDD4_itemVar.it_2E6A_1.x10 != NULL)
     {
-        item->xDD4_itemVar.it_2E6A_1.x18(item_gobj, item->xDD4_itemVar.it_2E6A_1.x10, &sp10, fighter_gobj, item->xCA0);
+        item->xDD4_itemVar.it_2E6A_1.x18(item_gobj,
+                                         item->xDD4_itemVar.it_2E6A_1.x10,
+                                         &sp10, fighter_gobj, item->xCA0);
     }
     return false;
 }
@@ -196,12 +200,13 @@ bool it_802E7054(HSD_GObj* item_gobj)
     if (item->xDD4_itemVar.it_2E6A_1.x1C != NULL &&
         item->xDD4_itemVar.it_2E6A_1.x10 != NULL)
     {
-        item->xDD4_itemVar.it_2E6A_1.x1C(item_gobj, item->xDD4_itemVar.it_2E6A_1.x10, item->toucher);
+        item->xDD4_itemVar.it_2E6A_1.x1C(
+            item_gobj, item->xDD4_itemVar.it_2E6A_1.x10, item->toucher);
     }
     return false;
 }
 
-void it_802E709C(Item_GObj* item_gobj, HSD_GObj* ref_gobj)
+void it_2725_Logic117_EvtUnk(Item_GObj* item_gobj, HSD_GObj* ref_gobj)
 {
     it_8026B894(item_gobj, ref_gobj);
 }
