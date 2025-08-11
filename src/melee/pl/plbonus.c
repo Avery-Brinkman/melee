@@ -1,6 +1,3 @@
-#include <platform.h>
-#include <placeholder.h>
-
 #include "plbonus.h"
 
 #include "inlines.h"
@@ -11,6 +8,9 @@
 #include "plstale.h"
 #include "pltrick.h"
 #include "types.h"
+
+#include <placeholder.h>
+#include <platform.h>
 
 #include <baselib/debug.h>
 #include <gm/gm_unsplit.h>
@@ -368,7 +368,6 @@ static inline bool between_x11_and_x30(int kind)
     return kind >= 0x11 && kind <= 0x30;
 }
 
-/// #fn_80039618
 void fn_80039618(int arg0)
 {
     s32 sp54;
