@@ -1,14 +1,16 @@
-#include "forward.h"
-#include "ft/forward.h"
-#include "it/forward.h"
-
 #include "ftMt_SpecialN.h"
 
 #include "math.h"
 
 #include "ef/eflib.h"
 #include "ef/efsync.h"
+
+#include "forward.h"
+
 #include "ft/fighter.h"
+
+#include "ft/forward.h"
+
 #include "ft/ft_081B.h"
 #include "ft/ft_0877.h"
 #include "ft/ft_0881.h"
@@ -22,6 +24,9 @@
 #include "ftCommon/ftCo_FallSpecial.h"
 #include "ftMewtwo/ftMt_Init.h"
 #include "ftMewtwo/types.h"
+
+#include "it/forward.h"
+
 #include "it/items/it_27CF.h"
 #include "it/items/itmewtwoshadowball.h"
 #include "lb/lb_00B0.h"
@@ -84,7 +89,7 @@ bool ftMt_SpecialN_CheckShadowBallRemove(HSD_GObj* gobj)
         case ftMt_MS_SpecialAirNCancel:
         case ftMt_MS_SpecialAirNEnd:
 
-            if (fp->x2070.x2071_b6 != false) {
+            if (fp->x2070.x2071_b6) {
                 return true;
             }
             return false;

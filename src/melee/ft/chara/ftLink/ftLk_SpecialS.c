@@ -1,16 +1,13 @@
-#include <platform.h>
-
-#include "ftLink/forward.h"
-#include <baselib/forward.h>
-
 #include "ftLk_SpecialS.h"
 
 #include "ftLk_Init.h"
 
+#include <platform.h>
+
 #include "ft/fighter.h"
 #include "ft/ft_081B.h"
 #include "ft/ft_0892.h"
-#include "ft/ft_0D14.h"
+#include "ftCommon/ftCo_Attack100.h"
 #include "ft/ftanim.h"
 #include "ft/ftcommon.h"
 #include "ft/ftparts.h"
@@ -20,11 +17,17 @@
 #include "ftCommon/ftCo_Guard.h"
 #include "ftCommon/ftCo_Jump.h"
 #include "ftCommon/ftCo_JumpAerial.h"
+#include "ftCommon/ftCo_Landing.h"
 #include "ftCommon/ftCo_SpecialAir.h"
 #include "ftCommon/ftCo_SpecialS.h"
+
+#include "ftLink/forward.h"
+
 #include "ftLink/types.h"
 #include "it/items/itlinkboomerang.h"
 #include "lb/lb_00B0.h"
+
+#include <baselib/forward.h>
 
 #include <common_structs.h>
 #include <math.h>
@@ -447,7 +450,7 @@ void ftLk_SpecialAirS2_Coll(HSD_GObj* gobj)
         if (fp->fv.lk.boomerang_gobj != NULL) {
             it_802A07B4(fp->fv.lk.boomerang_gobj);
         }
-        ftCo_800D5BF8(gobj);
+        ftCo_Landing_Enter_Basic(gobj);
     }
 }
 

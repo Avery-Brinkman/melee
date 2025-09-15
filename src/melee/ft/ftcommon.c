@@ -1,6 +1,3 @@
-#include "ft/forward.h"
-#include "it/forward.h"
-
 #include "ftcommon.h"
 
 #include "fighter.h"
@@ -12,10 +9,13 @@
 #include "ftparts.h"
 
 #include "ef/eflib.h"
+
+#include "ft/forward.h"
+
 #include "ft/ft_0881.h"
 #include "ft/ft_0892.h"
 #include "ft/ft_0C88.h"
-#include "ft/ft_0D14.h"
+#include "ft/ft_0DF0.h"
 #include "ft/ftchangeparam.h"
 #include "ft/ftcolanim.h"
 #include "ft/ftmaterial.h"
@@ -27,6 +27,9 @@
 #include "ftCommon/ftCo_HammerWait.h"
 #include "ftCommon/ftpickupitem.h"
 #include "gm/gm_unsplit.h"
+
+#include "it/forward.h"
+
 #include "it/it_26B1.h"
 #include "it/item.h"
 #include "it/items/it_2E5A.h"
@@ -35,13 +38,12 @@
 #include "it/items/itsword.h"
 #include "lb/lb_00F9.h"
 #include "mp/mplib.h"
-#include "pl/pl_040D.h"
 #include "pl/player.h"
 #include "pl/plbonuslib.h"
-#include "un/un_2FC9.h"
 #include "vi/vi1202.h"
 
 #include <common_structs.h>
+#include <math.h>
 #include <trigf.h>
 #include <dolphin/os/OSError.h>
 #include <baselib/debug.h>
@@ -49,7 +51,6 @@
 #include <baselib/jobj.h>
 #include <baselib/rumble.h>
 #include <melee/it/items/itpeachparasol.h>
-#include <math.h>
 
 const Vec3 ftCo_803B74A0 = { 0 };
 
@@ -998,15 +999,15 @@ HSD_GObj* ftCommon_8007E2A4(HSD_GObj* gobj)
     return gobj;
 }
 
-void ftCommon_8007E2D0(Fighter* fp, s16 arg1, void (*cb0)(HSD_GObj*),
-                       void (*cb1)(HSD_GObj*),
-                       void (*cb2)(HSD_GObj*, HSD_GObj*))
+void ftCommon_8007E2D0(Fighter* fp, s16 arg1, HSD_GObjEvent grab_cb,
+                       HSD_GObjEvent unk_cb,
+                       void (*grabbed_cb)(HSD_GObj*, HSD_GObj*))
 {
-    fp->x221E_b6 = 1;
+    fp->x221E_b6 = true;
     fp->x1A68 = arg1;
-    fp->grab_cb = cb0;
-    fp->grabbed_cb = cb2;
-    fp->x2194 = cb1;
+    fp->grab_cb = grab_cb;
+    fp->grabbed_cb = grabbed_cb;
+    fp->x2194 = unk_cb;
 }
 
 void ftCommon_8007E2F4(Fighter* fp, s16 val)
@@ -1438,8 +1439,8 @@ void ftCommon_8007EFC8(HSD_GObj* gobj, void (*arg1)(HSD_GObj*))
     dst->x2220_b6 = src->x2220_b6;
     dst->x2008 = src->x2008;
     ftLib_SetScale(dst_gobj, src->x34_scale.y);
-    if (src->x2223_b7) {
-        ftCo_800C8348(dst_gobj, src->x2028, src->x202C);
+    if (src->is_metal) {
+        ftCo_800C8348(dst_gobj, src->metal_timer, src->metal_health);
         ftCo_800C8540(gobj);
     }
     if (src->x2226_b4) {
@@ -1495,15 +1496,15 @@ void ftCommon_8007F578(HSD_GObj* gobj)
     }
 }
 
-void ftCommon_8007F5CC(HSD_GObj* gobj, s32 arg1)
+void ftCommon_8007F5CC(Item_GObj* gobj, bool arg1)
 {
     Fighter* fp = gobj->user_data;
-    HSD_GObj* item = fp->item_gobj;
+    Item_GObj* item = fp->item_gobj;
 
-    u8 _[8];
+    PAD_STACK(8);
 
     if (item != NULL && fp->x221E_b3 != arg1) {
-        if (arg1 == 0) {
+        if (!arg1) {
             ftCommon_8007F578(gobj);
         } else if (item != NULL) {
             if (ftData_OnItemVisible[fp->kind] != NULL) {

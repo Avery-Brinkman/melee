@@ -1,5 +1,3 @@
-#include "ftCo_Guard.static.h"
-
 #include "ftCo_0C35.h"
 #include "ftCo_Attack1.h"
 #include "ftCo_AttackHi3.h"
@@ -9,6 +7,9 @@
 #include "ftCo_AttackS3.h"
 #include "ftCo_AttackS4.h"
 #include "ftCo_Escape.h"
+
+#include "ftCo_Guard.static.h"
+
 #include "ftCo_ItemThrow.h"
 #include "ftCo_Pass.h"
 #include "ftCo_ShieldBreakFly.h"
@@ -20,7 +21,7 @@
 #include "ft/ft_081B.h"
 #include "ft/ft_0877.h"
 #include "ft/ft_0892.h"
-#include "ft/ft_0D14.h"
+#include "ftCommon/ftCo_Attack100.h"
 #include "ft/ftanim.h"
 #include "ft/ftcoll.h"
 #include "ft/ftcommon.h"
@@ -210,7 +211,7 @@ static inline void inlineD0(Fighter_GObj* gobj)
 void ftCo_80091E78(HSD_GObj* gobj, float arg1)
 {
     Fighter* fp = gobj->user_data;
-    if (fp->x2218_b3 || fp->x221B_b0) {
+    if (fp->reflecting || fp->x221B_b0) {
         ftCo_80091BC4(fp);
         if (fp->mv.co.guard.x4) {
             HSD_JObj* jobj = fp->x8AC_animSkeleton;
@@ -379,7 +380,7 @@ static inline bool inlineC0(Fighter_GObj* gobj, HSD_GObjEvent cb)
 {
     Fighter* fp = gobj->user_data;
     if ((fp->mv.co.guard.xC && !fp->mv.co.guard.x10) ||
-        (!fp->x221B_b0 && !fp->x2218_b3))
+        (!fp->x221B_b0 && !fp->reflecting))
     {
         cb(gobj);
         return true;
@@ -802,7 +803,7 @@ void ftCo_80093BC0(Fighter_GObj* gobj)
         fp->mv.co.guard.x14 -= 1;
         if (fp->mv.co.guard.x14 < 0) {
             fp->x221C_b1 = false;
-            fp->x2218_b3 = false;
+            fp->reflecting = false;
             ftCo_80092450(gobj);
         }
     }

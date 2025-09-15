@@ -1,14 +1,14 @@
-#include <platform.h>
-
 #include "ftCo_CliffClimb.h"
 
 #include "ftCo_CliffAttack.h"
 #include "ftCo_StopCeil.h"
 #include "math.h"
 
+#include <platform.h>
+
 #include "ft/fighter.h"
 #include "ft/ft_081B.h"
-#include "ft/ft_0D14.h"
+#include "ft/ft_0DF1.h"
 #include "ft/ftanim.h"
 #include "ft/ftcliffcommon.h"
 #include "ft/ftcommon.h"

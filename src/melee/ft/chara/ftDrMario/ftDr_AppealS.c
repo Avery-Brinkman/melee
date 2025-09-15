@@ -1,14 +1,14 @@
-#include <platform.h>
-
 #include "ftDr_AppealS.h"
 
 #include "ftDr_Init.h"
 
+#include <platform.h>
+
 #include "ft/ft_081B.h"
 #include "ft/ft_0892.h"
-#include "ft/ft_0D14.h"
 #include "ft/ftanim.h"
 #include "ft/types.h"
+#include "ftCommon/ftCo_AppealS.h"
 #include "ftMario/ftMr_SpecialN.h"
 #include "ftMario/types.h"
 #include "it/items/it_27CF.h"

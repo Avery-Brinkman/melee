@@ -1,15 +1,16 @@
-#include <platform.h>
-
-#include "ftPikachu/forward.h"
-
 #include "ftPc_Init.h"
 
 #include "types.h"
+
+#include <platform.h>
 
 #include "ft/fighter.h"
 #include "ft/ftcamera.h"
 #include "ft/ftparts.h"
 #include "ft/types.h"
+
+#include "ftPikachu/forward.h"
+
 #include "ftPikachu/ftPk_Init.h"
 #include "ftPikachu/ftPk_SpecialHi.h"
 #include "ftPikachu/ftPk_SpecialLw.h"
@@ -341,7 +342,7 @@ void ftPc_Init_OnLoad(HSD_GObj* gobj)
     Fighter* fp = GET_FIGHTER(gobj);
     ftData* ftdata = fp->ft_data;
     void** items = ftdata->x48_items;
-    fp->x2224_b7 = true;
+    fp->can_walljump = true;
     ftPk_Init_OnLoadForPichu(fp);
 
     {

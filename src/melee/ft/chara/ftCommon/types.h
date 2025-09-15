@@ -1,16 +1,16 @@
 #ifndef MELEE_FT_CHARA_FTCOMMON_TYPES_H
 #define MELEE_FT_CHARA_FTCOMMON_TYPES_H
 
-#include <platform.h>
+#include "common_structs.h"
+
 #include <placeholder.h>
+#include <platform.h>
 
 #include "ft/forward.h"
 #include "ftCommon/forward.h" // IWYU pragma: export
 #include "ftKirby/forward.h"
 #include "it/forward.h"
 #include "lb/forward.h"
-
-#include "common_structs.h"
 
 #include <dolphin/mtx.h>
 
@@ -110,6 +110,13 @@ union ftCommon_MotionVars {
         /* fp+2344 */ float x4;
     } fallaerial;
     struct {
+        /* fp+2340 */ int x0;
+        /* fp+2344 */ float x4;
+    } squat;
+    struct {
+        /* fp+2340 */ bool allow_interrupt;
+    } landing;
+    struct {
         /* fp+2340 */ bool x0;
     } attack1;
     struct {
@@ -155,6 +162,14 @@ union ftCommon_MotionVars {
     struct {
         /* fp+2340 */ bool x0; // itemget action is heavy type?
     } itemget;
+    struct {
+        /* fp+2340 */ UNK_T x0;
+        /* fp+2344 */ int x4;
+        /* fp+2348 */ float x8;
+        /* fp+234C */ HSD_GObj* victim;
+        /* fp+2350 */ float self_vel_y;
+        /* fp+2354 */ float self_vel_x;
+    } fighterthrow;
     struct {
         /* fp+2340 */ float facing_dir;
         /* fp+2344 */ float x4;
@@ -376,6 +391,38 @@ union ftCommon_MotionVars {
         /* fp+2348 */ u8 pad_x48[0x68 - 0x48];
         /* fp+2368 */ int x68;
     } unk_deadup;
+    struct {
+        /* fp+2340 */ bool unk_bool;
+        /* fp+2344 */ float anim_timer;
+        /* fp+2348 */ UNK_T x8;
+        /* fp+234C */ u8 xC;
+    } thrown;
+    struct {
+        /* fp+2340 */ FtMotionId prev_msid;
+    } parasol_open;
+};
+
+/// @todo Fake, need to find real size of #HitCapsule
+struct SmallerHitCapsule {
+    /*  +0 */ HitCapsuleState state;
+    /*  +4 */ u32 x4;
+    /*  +8 */ u32 unk_count;
+    /*  +C */ float damage;
+    /* +10 */ Vec3 b_offset;
+    /* +1C */ float scale;
+    /* +20 */ int kb_angle;
+    /* +24 */ u32 x24;
+    /* +28 */ u32 x28;
+    /* +2C */ u32 x2C;
+    /* +30 */ u32 element;
+    /* +34 */ char pad_34[0xFC];
+};
+
+struct TetherAttributes {
+    char pad_0[0x38];
+    /* +38 */ float pos_x_0;
+    /* +3C */ float x3C;
+    /* +40 */ float pos_x_1;
 };
 
 #endif

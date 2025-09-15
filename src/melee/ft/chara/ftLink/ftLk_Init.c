@@ -1,5 +1,3 @@
-#include "ftCommon/forward.h"
-
 #include "ftLk_Init.h"
 
 #include "ftLk_SpecialHi.h"
@@ -11,13 +9,16 @@
 #include "ft/fighter.h"
 #include "ft/ft_081B.h"
 #include "ft/ft_0877.h"
-#include "ft/ft_0D14.h"
+#include "ftCommon/ftCo_Attack100.h"
 #include "ft/ftattacks4combo.h"
 #include "ft/ftcamera.h"
 #include "ft/ftdata.h"
 #include "ft/ftparts.h"
 #include "ft/types.h"
 #include "ftCLink/ftCl_Init.h"
+
+#include "ftCommon/forward.h"
+
 #include "ftCommon/ftCo_AirCatch.h"
 #include "ftCommon/ftCo_Guard.h"
 #include "it/it_26B1.h"
@@ -295,8 +296,6 @@ Fighter_CostumeStrings ftLk_Init_CostumeStrings[] = {
 
 int ftLk_Init_803C82EC[31] = { 0 };
 
-ftLk_SpecialN_Vec3Group const ftLk_Init_Vec3Group = { 0 };
-
 bool ftLk_Init_BoomerangExists(HSD_GObj* gobj)
 {
     Fighter* fp = GET_FIGHTER(gobj);
@@ -343,7 +342,7 @@ void ftLk_Init_OnLoad(HSD_GObj* gobj)
     it_8026B3F8(item_list[2], da->xBC);
     it_8026B3F8(item_list[3], da->xC);
     it_8026B3F8(item_list[4], da->x10);
-    ftParts_800753D4(fp, *Fighter_804D6540[fp->kind], item_list[6]);
+    ftParts_800753D4(fp, Fighter_804D6540[fp->kind]->x0, item_list[6]);
 }
 
 void ftLk_800EAF38(HSD_GObj* gobj)

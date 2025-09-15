@@ -1,6 +1,7 @@
-#include <platform.h>
-#include <placeholder.h>
 #include "itcrazyhandbomb.h"
+
+#include <placeholder.h>
+#include <platform.h>
 
 /// #it_802F0F6C
 
@@ -8,7 +9,11 @@
 
 /// #it_2725_Logic86_EvtUnk
 
-/// #it_2725_Logic86_DmgDealt
+bool it_2725_Logic86_DmgDealt(Item_GObj* gobj)
+{
+    it_802F1344();
+    return 1;
+}
 
 /// #it_2725_Logic86_Reflected
 

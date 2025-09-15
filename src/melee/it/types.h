@@ -1,20 +1,26 @@
 #ifndef MELEE_IT_TYPES_H
 #define MELEE_IT_TYPES_H
 
-#include <platform.h>
 #include <placeholder.h>
+#include <platform.h>
 
 #include "cm/forward.h"
-#include "it/forward.h" // IWYU pragma: export
-#include "it/items/forward.h"
-#include <baselib/forward.h>
 
 #include "ft/types.h"
+#include "gm/types.h"
+
+#include "it/forward.h" // IWYU pragma: export
+
 #include "it/itCharItems.h"
 #include "it/itCommonItems.h"
+
+#include "it/items/forward.h"
+
 #include "it/itPKFlash.h"
 #include "it/itPKThunder.h"
 #include "lb/types.h"
+
+#include <baselib/forward.h>
 
 #include <common_structs.h>
 #include <dolphin/gx.h>
@@ -189,7 +195,7 @@ typedef struct it_266F_ItemVars {
     s32 x10;
     s32 x14;
     UnkFlagStruct x18;
-    Vec3 x1C[2];
+    struct lbColl_8000A10C_arg0_t x1C;
 } it_266F_ItemVars;
 
 struct Item {
@@ -278,7 +284,7 @@ struct Item {
 
     HSD_GObj* x51C;            // Related to the owner gobj
     CameraBox* x520_cameraBox; // CameraBox
-    FtCmdState x524_cmd;       // should this be CommandInfo* instead?
+    CommandInfo x524_cmd;       // should this be CommandInfo* instead?
                                // f32 x528;
                                // void* x52C_item_script; // Script parse?
                                // u32 x530;
@@ -298,13 +304,10 @@ struct Item {
         HitCapsule hit; // x5D4, x710, x84C, x988
         s32 x138;       // x70C, x848, x984, xAC0
     } x5D4_hitboxes[4];
-    u32 xAC4_ignoreItemID; // Cannot hit items with this index?
-    u8 xAC8_hurtboxNum;    // Number of hurtboxes this item has
+    u32 xAC4_ignoreItemID;           // Cannot hit items with this index?
+    u8 xAC8_hurtboxNum;              // Number of hurtboxes this item has
     HurtCapsule xACC_itemHurtbox[2]; // xACC, xB10
-    Vec2 xB54;
-    f32 xB5C;
-    f32 xB60;
-    f32 xB64;
+    struct lb_80014638_arg1_t xB54;
     u8 xB68; // int for ItemDynamics->count?
     u8 xB69;
     u8 xB6A;
@@ -583,6 +586,7 @@ struct Item {
         itZeldaDinFireExplode_ItemVars zeldadinfireexplode;
         itMasterHandBullet_ItemVars masterhandbullet;
         itMasterHandLaser_ItemVars masterhandlaser;
+        itUnk4_ItemVars unk4;
         u8 _[0xFCC - 0xDD4];
     } xDD4_itemVar;
 };

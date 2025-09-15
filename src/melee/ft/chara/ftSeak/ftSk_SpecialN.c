@@ -1,19 +1,23 @@
-#include "ft/forward.h"
-#include "ftSeak/forward.h"
-
 #include "ftSk_SpecialN.h"
 
 #include "ef/efsync.h"
 #include "ft/fighter.h"
+
+#include "ft/forward.h"
+
 #include "ft/ft_081B.h"
 #include "ft/ft_0877.h"
 #include "ft/ft_0892.h"
-#include "ft/ft_0D14.h"
+#include "ftCommon/ftCo_Attack100.h"
 #include "ft/ftcolanim.h"
 #include "ft/ftcommon.h"
 #include "ft/inlines.h"
 #include "ftCommon/ftCo_Fall.h"
 #include "ftCommon/ftCo_FallSpecial.h"
+#include "ftCommon/ftCo_Landing.h"
+
+#include "ftSeak/forward.h"
+
 #include "ftSeak/ftSk_Init.h"
 #include "it/items/itseakneedleheld.h"
 #include "it/items/itseakneedlethrown.h"
@@ -419,7 +423,7 @@ void ftSk_SpecialAirNCancel_Coll(Fighter_GObj* gobj)
 {
     PAD_STACK(4 * 2);
     if (ft_80081D0C(gobj) != GA_Ground) {
-        ftCo_800D5BF8(gobj);
+        ftCo_Landing_Enter_Basic(gobj);
         clearDmgCallbacks(gobj);
     }
 }
@@ -431,7 +435,7 @@ void ftSk_SpecialAirNEnd_Coll(Fighter_GObj* gobj)
         clearDmgCallbacks(gobj);
         fp->fv.sk.x0 = 0;
         fp->mv.sk.specialn.x4 = false;
-        ftCo_800D5BF8(gobj);
+        ftCo_Landing_Enter_Basic(gobj);
     }
 }
 

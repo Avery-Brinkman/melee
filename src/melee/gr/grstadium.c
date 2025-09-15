@@ -1,5 +1,6 @@
 /// @todo this file needs to be named "grpstadium.c" for asserts, oops!
 #include "grstadium.h"
+
 #include "dolphin/gx/GXStruct.h"
 
 #include <sysdolphin/baselib/archive.h>
@@ -1463,7 +1464,7 @@ static TextGlyphTexture grPs_8049F040;
 void grStadium_801D3460(Ground_GObj* gobj)
 {
     U8Vec4 sp48;
-    void* sp38[4];
+    const char* sp38[4];
     HSD_Text* temp_r3;
     HSD_Text* temp_r3_2;
     HSD_Text* temp_r4;
@@ -1531,9 +1532,9 @@ void grStadium_801D3460(Ground_GObj* gobj)
 
     for (i = 0; i < 4; i++) {
         if (Player_GetPlayerSlotType(i) != Gm_PKind_NA) {
-            UNK_T tmp = gm_80160A60(i);
-            sp38[var_r28] = tmp;
-            if (tmp != NULL) {
+            const char* character_name = gm_80160A60(i);
+            sp38[var_r28] = character_name;
+            if (character_name != NULL) {
                 var_r28++;
             }
         }
@@ -1661,7 +1662,7 @@ void grStadium_801D3A0C(Ground_GObj* gobj)
     sp24.z = 0xFF;
     temp_r30->x1C->x30 = sp24;
     temp_r30->x1C->x4A = 1;
-    if (gp->u.display.xF0 == 0) {
+    if (gp->u.display.xF0 == Gm_PKind_Human) {
         temp_r3 = temp_r30->x1C;
         temp_r3->x34.x = 0.625F;
         temp_r3->x34.y = 1.5F;
@@ -1694,7 +1695,7 @@ const float grPs_804DAF68 = 52;
 const float grPs_804DAF6C = -3;
 const float grPs_804DAF74 = 56;
 
-void grStadium_801D3B4C(int arg0, int arg1)
+void grStadium_801D3B4C(int arg0, int slot_type)
 {
     Ground_GObj* gobj;
     Ground* gp;
@@ -1703,7 +1704,7 @@ void grStadium_801D3B4C(int arg0, int arg1)
         gobj = Ground_801C2BA4(PsType_Display);
         gp = GET_GROUND(gobj);
         gp->u.display.xEE = arg0;
-        gp->u.display.xF0 = arg1;
+        gp->u.display.xF0 = slot_type;
         grStadium_801D2528(gobj, 9, 0);
     }
 }
@@ -1726,7 +1727,7 @@ void grStadium_801D3BBC(Ground_GObj* arg0)
     f32 var_f0_2;
     f32 var_f0_3;
     s32 temp_r29;
-    char* temp_r3_5;
+    const char* character_name;
     s32 var_r25;
     s32 var_r28;
     s32 var_r30;
@@ -1821,11 +1822,11 @@ void grStadium_801D3BBC(Ground_GObj* arg0)
                 sp28[0].g = (u8) (s32) var_f0_3;
                 sp28[0].b = 0xFF;
                 temp_r31->x1C->x30 = *(U8Vec4*) &sp28[0];
-                temp_r3_5 = gm_80160A60(var_r30_2);
-                if (temp_r3_5 != 0) {
+                character_name = gm_80160A60(var_r30_2);
+                if (character_name != NULL) {
                     HSD_SisLib_803A6B98(temp_r31->x1C, grPs_804DAF58,
                                         (f32) (temp_r29 + var_r28), "%s",
-                                        temp_r3_5);
+                                        character_name);
                 }
                 var_r28 += 0x20;
             }
@@ -1919,7 +1920,7 @@ void grStadium_801D4194(Ground_GObj* arg0)
     HSD_SisLib_803A6368(gp2->x18, 3);
 }
 
-void fn_801D4220(UNK_T un0, int un1, UNK_T un2, bool cancelflag)
+void fn_801D4220(int un0, int un1, UNK_T un2, bool cancelflag)
 {
     Ground_GObj* map_gobj;
     Ground* gp;

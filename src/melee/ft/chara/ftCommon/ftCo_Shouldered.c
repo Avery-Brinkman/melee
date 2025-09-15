@@ -1,14 +1,14 @@
-#include <platform.h>
-#include <placeholder.h>
-
-#include "lb/forward.h"
-
 #include "ftCo_Shouldered.h"
+#include "ftCommon/ftCo_CaptureCut.h"
+#include "ftCommon/ftCo_Throw.h"
 
 #include "ftCo_Damage.h"
 
+#include <placeholder.h>
+#include <platform.h>
+
 #include "ft/fighter.h"
-#include "ft/ft_0D14.h"
+#include "ftCommon/ftCo_Attack100.h"
 #include "ft/ftanim.h"
 #include "ft/ftcoll.h"
 #include "ft/ftcommon.h"
@@ -16,6 +16,9 @@
 #include "ft/types.h"
 #include "ftCaptain/types.h"
 #include "ftCommon/types.h"
+
+#include "lb/forward.h"
+
 #include "lb/lb_00B0.h"
 
 #include <common_structs.h>

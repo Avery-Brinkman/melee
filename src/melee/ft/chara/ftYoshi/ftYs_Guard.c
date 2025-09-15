@@ -1,27 +1,31 @@
-#include <placeholder.h>
-
-#include "ft/forward.h"
-#include "ftCommon/forward.h"
-#include <baselib/forward.h>
-
 #include "ftYs_Guard.h"
 
 #include "ftYs_Init.h"
 #include "ftYs_SpecialN.h"
 
+#include <placeholder.h>
+
 #include "ef/efasync.h"
 #include "ft/fighter.h"
+
+#include "ft/forward.h"
+
 #include "ft/ft_0892.h"
-#include "ft/ft_0D14.h"
+#include "ftCommon/ftCo_Attack100.h"
 #include "ft/ftanim.h"
 #include "ft/ftcoll.h"
 #include "ft/ftparts.h"
 #include "ft/types.h"
+
+#include "ftCommon/forward.h"
+
 #include "ftCommon/ftCo_Escape.h"
 #include "ftCommon/ftCo_Guard.h"
 #include "ftCommon/ftCo_ItemThrow.h"
 #include "ftCommon/ftCo_Pass.h"
 #include "ftYoshi/types.h"
+
+#include <baselib/forward.h>
 
 char ftYs_Init_DatFilename[] = "PlYs.dat";
 char ftYs_Init_DataName[] = "ftDataYoshi";
@@ -59,6 +63,13 @@ Fighter_CostumeStrings ftYs_Init_CostumeStrings[] = {
     { ftYs_Unk2_803CEB8C, ftYs_Unk2_803CEB98, ftYs_Unk2_803CEBB4 },
     { ftYs_Unk2_803CEBD8, ftYs_Unk2_803CEBE4, ftYs_Unk2_803CEC00 },
     { ftYs_Unk2_803CEC24, ftYs_Unk2_803CEC30, ftYs_Unk2_803CEC4C },
+};
+
+/* 3CED84 */ static Vec4 ftYs_Unk3_803CED84 = { 0.65, 0.7, 0.8, 1 };
+/* 3CED94 */ static Vec4 ftYs_Unk3_803CED94 = { 1.1, 1.35, 1.3, 1.2 };
+/* 3CEDA4 */ static Vec3 ftYs_Unk3_803CEDA4[] = {
+    { 12, 0, -6 },
+    { 6, 6, 6 },
 };
 
 /* static */ extern float const ftYs_Init_804D9A28;
@@ -160,9 +171,7 @@ void ftYs_GuardHold_Anim(HSD_GObj* gobj)
 
     if (ftCo_800925A4(gobj)) {
         spawnEffect(gobj);
-    } else if (fp->mv.ys.unk2.xC != 0 ||
-               (!(fp->x221B_b0 & 1) && !(fp->x2218_b3)))
-    {
+    } else if (fp->mv.ys.unk2.xC || (!fp->x221B_b0 && !fp->reflecting)) {
         ftCo_80092BE8(gobj);
     } else {
         ftYs_Init_8012B8A4(gobj);
@@ -258,9 +267,15 @@ void ftYs_GuardDamage_Anim(HSD_GObj* gobj)
 
 void ftYs_GuardDamage_IASA(HSD_GObj* arg0) {}
 
-/// #ftYs_GuardDamage_Phys
+void ftYs_GuardDamage_Phys(Fighter_GObj* gobj)
+{
+    ftCo_GuardSetOff_Phys(gobj);
+}
 
-/// #ftYs_GuardDamage_Coll
+void ftYs_GuardDamage_Coll(Fighter_GObj* gobj)
+{
+    ftCo_GuardSetOff_Coll(gobj);
+}
 
 void ftYs_Shield_8012C850(HSD_GObj* gobj)
 {
@@ -285,11 +300,20 @@ void ftYs_Shield_8012CACC(HSD_GObj* arg0) {}
 
 /// #ftYs_GuardOn_1_Anim
 
-/// #ftYs_GuardOn_1_IASA
+void ftYs_GuardOn_1_IASA(Fighter_GObj* gobj)
+{
+    ftCo_GuardReflect_IASA(gobj);
+}
 
-/// #ftYs_GuardOn_1_Phys
+void ftYs_GuardOn_1_Phys(Fighter_GObj* gobj)
+{
+    ftCo_GuardReflect_Phys(gobj);
+}
 
-/// #ftYs_GuardOn_1_Coll
+void ftYs_GuardOn_1_Coll(Fighter_GObj* gobj)
+{
+    ftCo_GuardReflect_Coll(gobj);
+}
 
 bool ftYs_Shield_8012CC1C(HSD_GObj* gobj)
 {
@@ -301,47 +325,4 @@ bool ftYs_Shield_8012CC1C(HSD_GObj* gobj)
     }
 
     return false;
-}
-
-Fighter_Part ftYs_Shield_8012CC6C(Fighter_GObj* gobj)
-{
-    return ftParts_GetBoneIndex(GET_FIGHTER(gobj), 52);
-}
-
-void ftYs_Shield_8012CC94(HSD_GObj* gobj, Vec3* out)
-{
-    Fighter* fp = GET_FIGHTER(gobj);
-    ftYoshiAttributes* da = fp->dat_attrs;
-    out->x = (-fp->facing_dir * da->x10);
-    out->y = da->x14;
-    out->z = 0;
-}
-
-float ftYs_Shield_8012CCC4(HSD_GObj* gobj)
-{
-    return GET_FIGHTER(gobj)->facing_dir;
-}
-
-float ftYs_Shield_8012CCD0(HSD_GObj* gobj)
-{
-    ftYoshiAttributes* da = GET_FIGHTER(gobj)->dat_attrs;
-    return da->x18;
-}
-
-float ftYs_Shield_8012CCE0(HSD_GObj* gobj)
-{
-    ftYoshiAttributes* da = GET_FIGHTER(gobj)->dat_attrs;
-    return da->x1C;
-}
-
-float ftYs_Shield_8012CCF0(HSD_GObj* gobj)
-{
-    ftYoshiAttributes* da = GET_FIGHTER(gobj)->dat_attrs;
-    return da->x20;
-}
-
-float ftYs_Shield_8012CD00(HSD_GObj* gobj)
-{
-    ftYoshiAttributes* da = GET_FIGHTER(gobj)->dat_attrs;
-    return da->x24;
 }

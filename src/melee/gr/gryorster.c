@@ -1,6 +1,6 @@
-#include <platform.h>
-
 #include "gryorster.h"
+
+#include <platform.h>
 
 #include "gr/grdisplay.h"
 #include "gr/ground.h"
@@ -159,15 +159,9 @@ void grYorster_80202254(Ground_GObj* gobj)
     Ground_801C2FE0(gobj);
 }
 
-void grYorster_802022A0(Ground_GObj* gobj)
-{
-    return;
-}
+void grYorster_802022A0(HSD_GObj* gobj) {}
 
-void grYorster_802022A4(void)
-{
-    return;
-}
+void grYorster_802022A4(void) {}
 
 /// #grYorster_80202428
 

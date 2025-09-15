@@ -1,19 +1,23 @@
-#include <platform.h>
-
-#include "ftCommon/forward.h"
-
 #include "ftMh_TagRockPaper.h"
+#include "ftCommon/ftCo_CaptureCut.h"
+#include "ftCommon/ftCo_Throw.h"
 
 #include "ftMh_ThrownMasterHand.h"
 #include "ftMh_Wait1_2.h"
 
+#include <platform.h>
+
 #include "ft/fighter.h"
 #include "ft/ft_081B.h"
-#include "ft/ft_0D14.h"
+#include "ftCommon/ftCo_Attack100.h"
 #include "ft/ftanim.h"
 #include "ft/ftbosslib.h"
 #include "ft/ftcommon.h"
 #include "ft/types.h"
+
+#include "ftCommon/forward.h"
+
+#include "ftCommon/ftCo_Thrown.h"
 #include "ftMasterHand/types.h"
 #include "pl/player.h"
 

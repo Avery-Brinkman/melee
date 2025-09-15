@@ -1,8 +1,3 @@
-#include <platform.h>
-
-#include "ft/forward.h"
-#include "ftCommon/forward.h"
-
 #include "ftCo_PassiveWall.h"
 
 #include "ftCo_AirCatch.h"
@@ -13,23 +8,30 @@
 #include "ftCo_ItemThrow.h"
 #include "ftCo_SpecialAir.h"
 
+#include <platform.h>
+
 #include "ef/efasync.h"
 #include "ft/fighter.h"
+
+#include "ft/forward.h"
+
 #include "ft/ft_081B.h"
 #include "ft/ft_0877.h"
 #include "ft/ft_0881.h"
-#include "ft/ft_0CEE.h"
-#include "ft/ft_0D14.h"
+#include "ftCommon/ftCo_Attack100.h"
 #include "ft/ftanim.h"
 #include "ft/ftcolanim.h"
 #include "ft/ftcoll.h"
 #include "ft/ftcommon.h"
 #include "ft/types.h"
+
+#include "ftCommon/forward.h"
+
 #include "ftCommon/ftCo_Fall.h"
+#include "ftCommon/ftCo_ItemParasolOpen.h"
 #include "ftCommon/ftCo_JumpAerial.h"
 #include "ftCommon/types.h"
 #include "ftKirby/ftKb_Init.h"
-#include "lb/lb_00CE.h"
 
 #include <common_structs.h>
 #include <dolphin/mtx.h>

@@ -1,16 +1,19 @@
-#include <platform.h>
-#include <placeholder.h>
-
-#include "ftCommon/forward.h"
-
 #include "ftCo_CaptureWaitKirby.h"
 
+#include <placeholder.h>
+#include <platform.h>
+
 #include "ft/fighter.h"
-#include "ft/ft_0D14.h"
+#include "ftCommon/ftCo_Attack100.h"
 #include "ft/ftanim.h"
 #include "ft/ftcoll.h"
 #include "ft/ftcommon.h"
 #include "ft/types.h"
+
+#include "ftCommon/forward.h"
+
+#include "ftCommon/ftCo_CaptureCut.h"
+#include "ftCommon/ftCo_Throw.h"
 #include "ftCommon/types.h"
 #include "ftKirby/ftKb_Init.h"
 
@@ -34,7 +37,7 @@ void ftCo_800BD620(Fighter_GObj* gobj)
                               NULL);
     Fighter_UpdateModelScale(gobj);
     fp->accessory1_cb = ftCo_800DB464;
-    fp->x221E_b0 = true;
+    fp->invisible = true;
     ftColl_8007B62C(gobj, 2);
     ftCommon_8007D5D4(fp);
     ftCommon_8007E2F4(fp, 0x1FF);
@@ -83,7 +86,7 @@ static inline void inlineB0(Fighter_GObj* gobj)
     {
         fp->x670_timer_lstick_tilt_x = 254;
         if (fp->input.lstick.x < 0) {
-            ftKb_SpecialN_800F5A04(fp->victim_gobj);
+            ftKb_SpecialN_800F5A04(fp->victim_gobj, lstick_x);
         }
     }
 }
@@ -103,7 +106,7 @@ void ftCo_CaptureWaitKirby_IASA(Fighter_GObj* gobj)
         Fighter_GObj* victim_gobj = fp->victim_gobj;
         fp->facing_dir = ftKb_SpecialN_800F5A60(victim_gobj);
         HSD_JObjSetScale(jobj, &jobj->scale);
-        ftCo_800DC750(gobj);
+        ftCo_CaptureCut_Enter(gobj);
         ftCo_800DA698(victim_gobj, 0);
     }
 }

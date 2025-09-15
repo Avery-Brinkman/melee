@@ -15,31 +15,31 @@
 
 #define TEST(expr) (expr) ? true : false
 
-s32 ft_800877F8(HSD_GObj* gobj, s32 arg1)
+bool ft_800877F8(HSD_GObj* gobj, s32 arg1)
 {
     Fighter* fp = GET_FIGHTER(gobj);
     return TEST(fp->input.held_inputs & arg1);
 }
 
-s32 ft_80087818(HSD_GObj* gobj, s32 arg1)
+bool ft_80087818(HSD_GObj* gobj, s32 arg1)
 {
     Fighter* fp = GET_FIGHTER(gobj);
     return TEST(fp->input.x668 & arg1);
 }
 
-s32 ft_80087838(HSD_GObj* gobj)
+bool ft_80087838(HSD_GObj* gobj)
 {
     Fighter* fp = GET_FIGHTER(gobj);
     return TEST(fp->x221D_b7 & 1);
 }
 
-s32 ft_80087858(HSD_GObj* gobj)
+bool ft_80087858(HSD_GObj* gobj)
 {
     Fighter* fp = GET_FIGHTER(gobj);
     return TEST(fp->x2227_b1 & 1);
 }
 
-s32 ft_80087878(HSD_GObj* gobj, s32 arg1)
+bool ft_80087878(HSD_GObj* gobj, s32 arg1)
 {
     Fighter* fp = GET_FIGHTER(gobj);
 
@@ -52,7 +52,7 @@ s32 ft_80087878(HSD_GObj* gobj, s32 arg1)
     return false;
 }
 
-s32 ft_800878BC(HSD_GObj* gobj)
+bool ft_800878BC(HSD_GObj* gobj)
 {
     Fighter* fp = GET_FIGHTER(gobj);
 
@@ -63,29 +63,29 @@ s32 ft_800878BC(HSD_GObj* gobj)
     return false;
 }
 
-s32 ft_80087900(HSD_GObj* gobj)
+bool ft_80087900(HSD_GObj* gobj)
 {
     Fighter* fp = GET_FIGHTER(gobj);
 
-    if ((fp->item_gobj != NULL) && (itGetKind(fp->item_gobj) == 0x1E)) {
+    if (fp->item_gobj != NULL && itGetKind(fp->item_gobj) == It_Kind_ScBall) {
         return true;
     }
 
     return false;
 }
 
-s32 ft_80087944(HSD_GObj* gobj)
+bool ft_80087944(HSD_GObj* gobj)
 {
     Fighter* fp = GET_FIGHTER(gobj);
 
-    if ((fp->item_gobj != NULL) && (itGetKind(fp->item_gobj) == 0x7)) {
+    if (fp->item_gobj != NULL && itGetKind(fp->item_gobj) == It_Kind_Dosei) {
         return true;
     }
 
     return false;
 }
 
-s32 ft_80087988(HSD_GObj* gobj)
+bool ft_80087988(HSD_GObj* gobj)
 {
     if ((ftGetParasolStatus(gobj) == 4) || (ftGetParasolStatus(gobj) == 5)) {
         return true;
@@ -94,7 +94,7 @@ s32 ft_80087988(HSD_GObj* gobj)
     return false;
 }
 
-s32 ft_800879D8(HSD_GObj* gobj)
+bool ft_800879D8(HSD_GObj* gobj)
 {
     Fighter* fp = GET_FIGHTER(gobj);
 
@@ -105,7 +105,7 @@ s32 ft_800879D8(HSD_GObj* gobj)
     return false;
 }
 
-s32 ft_800879F8(HSD_GObj* gobj)
+bool ft_800879F8(HSD_GObj* gobj)
 {
     Fighter* fp = GET_FIGHTER(gobj);
 
@@ -116,7 +116,7 @@ s32 ft_800879F8(HSD_GObj* gobj)
     return false;
 }
 
-s32 ft_80087A18(HSD_GObj* gobj)
+bool ft_80087A18(HSD_GObj* gobj)
 {
     s32 var1;
     Fighter* fp = GET_FIGHTER(gobj);
@@ -132,7 +132,7 @@ s32 ft_80087A18(HSD_GObj* gobj)
     return false;
 }
 
-s8 ft_80087A80(HSD_GObj* gobj)
+int ft_80087A80(HSD_GObj* gobj)
 {
     Fighter* fp = GET_FIGHTER(gobj);
     return fp->smash_attrs.x2134_vibrateFrame;
@@ -150,7 +150,7 @@ s32 ft_80087A98(HSD_GObj* gobj)
     return fp->x213C;
 }
 
-s32 ft_80087AA4(HSD_GObj* gobj)
+bool ft_80087AA4(HSD_GObj* gobj)
 {
     Fighter* fp = GET_FIGHTER(gobj);
     return fp->x2227_b5;
@@ -176,15 +176,15 @@ void ft_80087AC0(HSD_GObj* gobj, s32 arg1)
     var0 = var1;
     var2 = fp->x221E_b7;
     var2 = var0;
-    fp->x221E_b0 = var2;
+    fp->invisible = var2;
 }
 
-s32 ft_80087AEC(HSD_GObj* gobj)
+bool ft_80087AEC(HSD_GObj* gobj)
 {
     Fighter* fp = GET_FIGHTER(gobj);
 
-    if ((fp->x34_scale.y != fp->x34_scale.x) ||
-        ((fp->x2226_b4) || (fp->x2223_b7) || (fp->x197C != 0)))
+    if (fp->x34_scale.y != fp->x34_scale.x ||
+        fp->x2226_b4 || fp->is_metal || fp->x197C != NULL)
     {
         return true;
     }
@@ -233,7 +233,7 @@ void ft_80087BAC(HSD_GObj* gobj, s32 arg1)
 void ft_80087BC0(HSD_GObj* gobj, int arg1)
 {
     Fighter* fp = GET_FIGHTER(gobj);
-    ftCo_800A101C(fp, arg1, fp->x1A88.x10, fp->x1A88.x14);
+    ftCo_800A101C(fp, arg1, fp->x1A88.level, fp->x1A88.x14);
 }
 
 void ft_80087BEC(HSD_GObj* gobj, int arg1)
@@ -273,7 +273,7 @@ void ft_80087C64(HSD_GObj* gobj, s32 arg1)
 s32 ft_80087C70(Fighter* fp, s32 arg1)
 {
     s32 var_r4 = arg1;
-    s32 temp_r0 = (fp->x2228_b3) & 3;
+    s32 temp_r0 = fp->x2228_b3;
 
     switch (temp_r0) {
     case 0:
@@ -337,7 +337,7 @@ s32 ft_80087D0C(Fighter* fighter, s32 sfx_id)
         case 383:
         case 371:
             sfx_id = ft_80087C70(fighter, sfx);
-            if (fighter->x2223_b7) {
+            if (fighter->is_metal) {
                 sfx_id += 3;
             }
             sfx = sfx_id;
@@ -450,7 +450,7 @@ void ft_80088110(Fighter* fp)
     fp->x2168 = 0;
 }
 
-void ft_PlaySFX(Fighter* fp, enum_t sfx_id, int sfx_vol, int sfx_pan)
+void ft_PlaySFX(Fighter* fp, enum_t sfx_id, u8 sfx_vol, u8 sfx_pan)
 {
     sfx_id = ft_80087D0C(fp, sfx_id);
     fp->x2160 = lbAudioAx_800237A8(sfx_id, sfx_vol, sfx_pan);

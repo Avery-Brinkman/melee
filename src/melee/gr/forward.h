@@ -3,6 +3,8 @@
 
 #include <baselib/forward.h>
 
+struct grCorneria_GroundVars;
+
 typedef struct grDynamicAttr_UnkStruct grDynamicAttr_UnkStruct;
 typedef struct Ground Ground;
 typedef struct StageInfo StageInfo;
@@ -142,5 +144,10 @@ typedef enum InternalStageId {
     /// Home run contest
     HOMERUN = 0x43,
 } InternalStageId;
+
+typedef struct unkCastle unkCastle;
+
+typedef void (*unkCastleCallback)(void*, struct unkCastle*);
+typedef void (*unkCastleCallback2)(void*, struct unkCastle*, Ground_GObj*);
 
 #endif

@@ -1,17 +1,21 @@
-#include <platform.h>
-
-#include "ft/forward.h"
-#include <baselib/forward.h>
-
 #include "ftCo_CaptureDamageKoopa.h"
 
+#include "ftCo_CaptureCut.h"
 #include "ftCo_CaptureKoopa.h"
 #include "ftCo_CaptureWaitKoopa.h"
+#include "ftCo_Throw.h"
+
+#include <platform.h>
 
 #include "ft/fighter.h"
-#include "ft/ft_0D14.h"
+
+#include "ft/forward.h"
+
+#include "ftCommon/ftCo_Attack100.h"
 #include "ft/ftanim.h"
 #include "ft/ftcommon.h"
+
+#include <baselib/forward.h>
 
 void ftCo_800BC9C8(Fighter_GObj* gobj)
 {
@@ -37,7 +41,7 @@ static inline void inlineA0(Fighter_GObj* gobj, HSD_GObjEvent cb)
     if (fp->grab_timer <= 0) {
         ftCo_800DA698(fp->victim_gobj, false);
         fp->facing_dir = -fp->facing_dir;
-        ftCo_800DC750(gobj);
+        ftCo_CaptureCut_Enter(gobj);
     } else {
         ftCo_800BC4A8(gobj);
     }

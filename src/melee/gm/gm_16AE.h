@@ -2,6 +2,7 @@
 #define MELEE_GM_16AE_H
 
 #include <placeholder.h>
+
 #include <melee/gm/forward.h>
 #include <melee/it/forward.h>
 #include <melee/mn/forward.h>
@@ -16,7 +17,7 @@
 /* 16AEB8 */ s32 gm_8016AEB8(void);
 /* 16AEC8 */ bool gm_8016AEC8(void);
 /* 16AEDC */ u32 gm_8016AEDC(void);
-/* 16AEEC */ int gm_8016AEEC(void);
+/* 16AEEC */ u32 gm_8016AEEC(void);
 /* 16AEFC */ u16 gm_8016AEFC(void);
 /* 16AF0C */ u16 gm_8016AF0C(void);
 /* 16AF88 */ bool GetMatchTimer(int*);
@@ -24,9 +25,9 @@
 /* 16B014 */ bool gm_8016B014(void);
 /* 16B094 */ bool gm_8016B094(void);
 /* 16B0B4 */ bool gm_8016B0B4(void);
-/* 16B0D4 */ bool gm_8016B0D4(void);
+/* 16B0D4 */ bool gm_8016B0D4(void); ///< friendly fire enabled
 /* 16B0E8 */ bool gm_8016B0E8(void);
-/* 16B0FC */ bool gm_8016B0FC(void);
+/* 16B0FC */ bool gm_8016B0FC(void); ///< single-button mode enabled
 /* 16B110 */ bool gm_8016B110(void);
 /* 16B124 */ bool gm_8016B124(void);
 /* 16B138 */ void fn_8016B138(void);
@@ -65,7 +66,7 @@
 /* 16B7B4 */ void fn_8016B7B4(int);
 /* 16B7F8 */ void fn_8016B7F8(void);
 /* 16B88C */ void fn_8016B88C(int);
-/* 16B8D4 */ void gm_8016B8D4(s32, s32);
+/* 16B8D4 */ void gm_8016B8D4(s32, u8 slot_type);
 /* 16B918 */ void fn_8016B918(void);
 /* 16BAF4 */ bool fn_8016BAF4(void);
 /* 16BBB4 */ bool fn_8016BBB4(void);
@@ -78,6 +79,8 @@
 /* 16C4F4 */ void fn_8016C4F4(struct lbl_8046B6A0_24C_t*);
 /* 16C5C0 */ bool gm_8016C5C0(int pl_slot);
 /* 16C658 */ int gm_8016C658(int);
+
+/// @todo should take Fighter_GObj*? See ftCo_800A53DC
 /* 16C6C0 */ /* static */ s32 gm_8016C6C0(Item_GObj*);
 /* 16C6C0 */ s32 gm_8016C6C0(Item_GObj*);
 /* 16C75C */ /* static */ int gm_8016C75C(HSD_GObj*);

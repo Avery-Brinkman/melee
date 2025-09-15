@@ -1,15 +1,9 @@
-#include <platform.h>
-#include <placeholder.h>
-
-#include "ft/forward.h"
-#include "ftCommon/forward.h"
-#include "lb/forward.h"
-
 #include "ftCo_Bury.h"
 
 #include "ftCo_AirCatch.h"
 #include "ftCo_AttackAir.h"
 #include "ftCo_BarrelWait.h"
+#include "ftCo_CaptureCut.h"
 #include "ftCo_Damage.h"
 #include "ftCo_EscapeAir.h"
 #include "ftCo_HammerJump.h"
@@ -17,21 +11,34 @@
 #include "ftCo_ItemThrow.h"
 #include "ftCo_Lift.h"
 #include "ftCo_SpecialAir.h"
+#include "ftCo_Throw.h"
+
+#include <placeholder.h>
+#include <platform.h>
 
 #include "ef/efsync.h"
 #include "ft/fighter.h"
+
+#include "ft/forward.h"
+
 #include "ft/ft_081B.h"
-#include "ft/ft_0D14.h"
+#include "ftCommon/ftCo_Attack100.h"
 #include "ft/ftanim.h"
 #include "ft/ftcoll.h"
 #include "ft/ftcommon.h"
 #include "ft/ftparts.h"
 #include "ft/types.h"
 #include "ftCaptain/types.h"
+
+#include "ftCommon/forward.h"
+
 #include "ftCommon/ftCo_Fall.h"
 #include "ftCommon/ftCo_JumpAerial.h"
 #include "ftCommon/types.h"
 #include "gr/ground.h"
+
+#include "lb/forward.h"
+
 #include "lb/lb_00B0.h"
 #include "lb/lbcollision.h"
 #include "mp/mplib.h"

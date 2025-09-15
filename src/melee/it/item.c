@@ -1,5 +1,3 @@
-#include "lb/forward.h"
-
 #include "item.h"
 
 #include "it_266F.h"
@@ -18,6 +16,9 @@
 #include "it/it_2725.h"
 #include "it/itcoll.h"
 #include "it/types.h"
+
+#include "lb/forward.h"
+
 #include "lb/lb_00B0.h"
 #include "lb/lb_00F9.h"
 #include "lb/lbaudio_ax.h"
@@ -1155,12 +1156,12 @@ void Item_80268DD4(HSD_GObj* gobj, f32 frame)
 /// Copy item script
 void Item_80268E40(Item* item_data, struct ItemStateDesc* itemStateDesc)
 {
-    item_data->x524_cmd.x8 = itemStateDesc->xC_script;
-    item_data->x524_cmd.xC = 0;
-    item_data->x524_cmd.x0 = 0.0f;
+    item_data->x524_cmd.u = itemStateDesc->xC_script;
+    item_data->x524_cmd.loop_count = 0;
+    item_data->x524_cmd.timer = 0.0f;
 }
 
-extern struct r13_ColAnimStruct* it_804D6D04;
+extern struct Fighter_804D653C_t* it_804D6D04;
 
 // Change item state
 void Item_80268E5C(HSD_GObj* gobj, enum_t msid, Item_StateChangeFlags flags)
@@ -1202,7 +1203,7 @@ void Item_80268E5C(HSD_GObj* gobj, enum_t msid, Item_StateChangeFlags flags)
     }
 
     if (!(flags & ITEM_COLANIM_PRESERVE) &&
-        it_804D6D04[item_data->x548_colorOverlay.x28_colanim].x5_unk != 0)
+        it_804D6D04[item_data->x548_colorOverlay.x28_colanim.i].unk5 != 0)
     {
         it_80279BBC(item_data);
     }
@@ -1255,13 +1256,13 @@ void Item_80268E5C(HSD_GObj* gobj, enum_t msid, Item_StateChangeFlags flags)
                 HSD_JObjSetScaleItem(gobj->user_data, gobj->hsd_obj, &scl);
             }
 
-            item_data->x524_cmd.x8 = temp_r29->xC_script;
-            item_data->x524_cmd.xC = 0;
-            item_data->x524_cmd.x0 = 0.0F;
+            item_data->x524_cmd.u = temp_r29->xC_script;
+            item_data->x524_cmd.loop_count = 0;
+            item_data->x524_cmd.timer = 0.0F;
         } else if (temp_r23 != NULL && (flags & ITEM_CMD_UPDATE)) {
-            item_data->x524_cmd.x8 = temp_r29->xC_script;
-            item_data->x524_cmd.xC = 0U;
-            item_data->x524_cmd.x0 = 0.0f;
+            item_data->x524_cmd.u = temp_r29->xC_script;
+            item_data->x524_cmd.loop_count = 0;
+            item_data->x524_cmd.timer = 0.0f;
         }
 
         HSD_JObjAnimAll(item_jobj);
@@ -1269,7 +1270,7 @@ void Item_80268E5C(HSD_GObj* gobj, enum_t msid, Item_StateChangeFlags flags)
         it_802799E4(gobj);
     } else {
         HSD_JObjRemoveAnimAll(item_jobj);
-        item_data->x524_cmd.x8 = NULL;
+        item_data->x524_cmd.u = NULL;
     }
 
     item_data->animated = temp_r30->animated;
@@ -2115,7 +2116,7 @@ u32 Item_8026AE60(void)
     return result;
 }
 
-void Item_8026AE84(Item* item_data, enum_t sfx, int pan, int volume)
+void Item_8026AE84(Item* item_data, enum_t sfx, u8 pan, u8 volume)
 {
     if (sfx != 540000) {
         if (sfx != 540001) {
@@ -2127,7 +2128,7 @@ void Item_8026AE84(Item* item_data, enum_t sfx, int pan, int volume)
     }
 }
 
-void Item_8026AF0C(Item* item_data, enum_t sfx, int pan, int volume)
+void Item_8026AF0C(Item* item_data, enum_t sfx, u8 pan, u8 volume)
 {
     if (sfx != 540000) {
         if (sfx != 540001) {
@@ -2142,7 +2143,7 @@ void Item_8026AF0C(Item* item_data, enum_t sfx, int pan, int volume)
     }
 }
 
-void Item_8026AFA0(Item* item_data, enum_t sfx, int pan, int volume)
+void Item_8026AFA0(Item* item_data, enum_t sfx, u8 pan, u8 volume)
 {
     if (sfx != 540000) {
         if (sfx != 540001) {

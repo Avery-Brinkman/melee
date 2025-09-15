@@ -1,27 +1,32 @@
-#include <placeholder.h>
-
-#include "ft/forward.h"
-#include "ftCommon/forward.h"
-
 #include "ftCo_JumpAerial.h"
 
 #include "math.h"
 
+#include <placeholder.h>
+
 #include "ft/fighter.h"
+
+#include "ft/forward.h"
+
 #include "ft/ft_081B.h"
 #include "ft/ft_0877.h"
 #include "ft/ft_0881.h"
-#include "ft/ft_0CEE.h"
-#include "ft/ft_0D14.h"
+#include "ftCommon/ftCo_Attack100.h"
+#include "ft/ft_0D27.h"
 #include "ft/ftcommon.h"
 #include "ft/inlines.h"
 #include "ft/types.h"
+
+#include "ftCommon/forward.h"
+
 #include "ftCommon/ftCo_AirCatch.h"
 #include "ftCommon/ftCo_AttackAir.h"
 #include "ftCommon/ftCo_EscapeAir.h"
 #include "ftCommon/ftCo_FallAerial.h"
 #include "ftCommon/ftCo_FallSpecial.h"
 #include "ftCommon/ftCo_HammerWait.h"
+#include "ftCommon/ftCo_ItemParasolOpen.h"
+#include "ftCommon/ftCo_ItemScrew.h"
 #include "ftCommon/ftCo_ItemThrow.h"
 #include "ftCommon/ftCo_SpecialAir.h"
 #include "ftPeach/ftPe_Float.h"
@@ -62,7 +67,7 @@ bool ftCo_800CB870(Fighter_GObj* gobj)
     if (ftCo_800C5240(gobj)) {
         return false;
     }
-    if (fp->x2222_b1) {
+    if (fp->can_multijump) {
         return ftCo_800D730C(gobj, false);
     }
     return ftCo_JumpAerial_CheckInput(gobj, false);
@@ -75,7 +80,7 @@ bool ftCo_800CB8E0(Fighter_GObj* gobj)
     if (ftCo_800C5240(gobj)) {
         return false;
     }
-    if (fp->x2222_b1) {
+    if (fp->can_multijump) {
         return ftCo_800D730C(gobj, true);
     }
     return ftCo_JumpAerial_CheckInput(gobj, true);

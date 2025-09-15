@@ -7,6 +7,7 @@
 
 #include "ft/ftanim.h"
 #include "ft/types.h"
+#include "gm/gm_16AE.h"
 #include "it/it_26B1.h"
 
 #include <common_structs.h>
@@ -93,13 +94,28 @@ static inline CollData* getFtColl(Fighter* fp)
     return &fp->coll_data;
 }
 
-static inline Fighter_GObj* getFtVictim(Fighter* fp) {
+static inline Fighter_GObj* getFtVictim(Fighter* fp)
+{
     return fp->victim_gobj;
+}
+
+static inline Item_GObj* getFtTargetItem(Fighter* fp)
+{
+    return fp->target_item_gobj;
 }
 
 static inline bool ftGetGroundAir(Fighter* fp)
 {
     return fp->ground_or_air;
+}
+
+static inline int getStickDirX(Fighter* fp)
+{
+    if (fp->input.lstick.x < 0.0f) {
+        return -1;
+    } else {
+        return +1;
+    }
 }
 
 static inline float stickGetDir(float x1, float x2)
@@ -226,6 +242,25 @@ static inline bool ftCheckThrowB4(Fighter* fp)
     }
 }
 
+static inline float ftGetFacingDir(Fighter_GObj* gobj)
+{
+    return GET_FIGHTER(gobj)->facing_dir;
+}
+
+static inline int ftGetFacingDirInt(Fighter* fp)
+{
+    if (fp->facing_dir < 0.0f) {
+        return -1;
+    } else {
+        return +1;
+    }
+}
+
+static inline int ftGetFacingDirInt2(Fighter_GObj* gobj)
+{
+    return ftGetFacingDirInt(GET_FIGHTER(gobj));
+}
+
 /// Ternary macro for fcmpo-based facing direction check
 #define CLIFFCATCH_O(fp)                                                      \
     ((fp)->facing_dir < 0.0f) ? CLIFFCATCH_LEFT : CLIFFCATCH_RIGHT
@@ -237,11 +272,22 @@ static inline bool ftCheckThrowB4(Fighter* fp)
 /// @todo Fix naming.
 #define gmScriptEventCast(p_event, type) ((type*) p_event)
 #define gmScriptEventUpdatePtr(event, type)                                   \
-    (event = (void*) ((uintptr_t) event + (sizeof(type))))
+    (event = (void*) ((uintptr_t) event + 4))
 
-inline ftCmdScript* getCmdScript(Fighter* fp)
+inline CommandInfo* getCmdScript(Fighter* fp)
 {
     return &fp->x3E4_fighterCmdScript;
+}
+
+static inline bool canUseCstick(Fighter* fp)
+{
+    /// Returns true if single-button mode is off,
+    /// and the held item allows using the C-stick.
+    if (!gm_8016B0FC() || it_8026B30C(fp->item_gobj) == 0) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 #endif

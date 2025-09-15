@@ -3,9 +3,9 @@
 #ifndef MELEE_IT_ITCHARITEMS_H
 #define MELEE_IT_ITCHARITEMS_H
 
-#include "it/forward.h"
-
 #include "platform.h"
+
+#include "it/forward.h"
 
 #include "lb/types.h"
 
@@ -451,5 +451,12 @@ typedef struct itZeldaDinFireExplodeAttributes {
     /* +C */ f32 xC;
     /* +10 */ f32 x10;
 } itZeldaDinFireExplodeAttributes;
+
+typedef struct itUnk4_ItemVars {
+    /*  +0 ip+DD4 */ u8 pad[0x18];
+    /*  +18 ip+DEC */ u8 xDEC_b0 : 1;
+    /*  +18 ip+DEC */ u8 xDEC_b1 : 1;
+    /*  +1C ip+DF0 */ Mtx xDF0;
+} itUnk4_ItemVars;
 
 #endif

@@ -1,5 +1,3 @@
-#include "ftCommon/forward.h"
-
 #include "ftSs_SpecialLw_0.h"
 
 #include "ftSs_Init.h"
@@ -9,11 +7,14 @@
 #include "ft/fighter.h"
 #include "ft/ft_081B.h"
 #include "ft/ft_0892.h"
-#include "ft/ft_0D14.h"
+#include "ftCommon/ftCo_Attack100.h"
 #include "ft/ftanim.h"
 #include "ft/ftcoll.h"
 #include "ft/ftcommon.h"
 #include "ft/types.h"
+
+#include "ftCommon/forward.h"
+
 #include "ftCommon/ftCo_Attack1.h"
 #include "ftCommon/ftCo_AttackHi3.h"
 #include "ftCommon/ftCo_AttackHi4.h"
@@ -24,6 +25,7 @@
 #include "ftCommon/ftCo_Escape.h"
 #include "ftCommon/ftCo_Fall.h"
 #include "ftCommon/ftCo_SpecialS.h"
+#include "ftCommon/ftCo_SquatWait.h"
 #include "lb/lbcollision.h"
 
 #include <common_structs.h>
@@ -45,7 +47,7 @@ void ftSs_Init_80128944(HSD_GObj* gobj, float farg1, float farg2)
         case 3:
         case 4:
             if ((fp->x2070.x2073 == 0x14) || ((fp->x2070.x2071_b5) == 0)) {
-                if (fp->x5F5 == 2) {
+                if (fp->x5F4_arr[0].x1 == 2) {
                     ftSs_Init_80128B1C(gobj, float_result, da->x0, 1.0f);
                 } else {
                     ftSs_Init_80128B1C(gobj, float_result, 0.0f, 1.0f);
@@ -61,8 +63,9 @@ bool ftSs_Init_80128A1C(HSD_GObj* gobj, UNK_T arg1, float farg1)
     int i;
 
     for (i = 0; i < fp->hurt_capsules_len; i++) {
-        if (lbColl_80008248(arg1, &fp->hurt_capsules[i].capsule, ftCommon_8007F804(fp),
-                            farg1, fp->x34_scale.y, fp->cur_pos.z))
+        if (lbColl_80008248(arg1, &fp->hurt_capsules[i].capsule,
+                            ftCommon_8007F804(fp), farg1, fp->x34_scale.y,
+                            fp->cur_pos.z))
         {
             return true;
         }

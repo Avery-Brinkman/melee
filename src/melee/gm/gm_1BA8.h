@@ -3,18 +3,20 @@
 
 #include <placeholder.h>
 
+#include "gm/types.h"
+
+#include <melee/ft/forward.h>
 #include <melee/gm/forward.h>
 #include <melee/mn/forward.h>
 #include <sysdolphin/baselib/forward.h>
-#include "gm/types.h"
 
 struct EventData;
 
 /* 1BA8FC */ UNK_RET gm_801BA8FC(UNK_PARAMS);
-/* 1BA938 */ UNK_RET gm_801BA938(struct EventData*, int, int, int);
+/* 1BA938 */ void gm_801BA938(struct EventData*, int lo, int hi, bool);
 /* 1BAA60 */ void gm_801BAA60(MinorScene*);
 /* 1BAAD0 */ void gm_801BAAD0(MinorScene*);
-/* 1BAB40 */ UNK_RET gm_801BAB40(UNK_PARAMS);
+/* 1BAB40 */ UNK_RET gm_801BAB40(PlayerInitData*, int);
 /* 1BAC9C */ UNK_RET gm_801BAC9C(UNK_PARAMS);
 /* 1BAD70 */ void gm_801BAD70(MinorScene*);
 /* 1BB758 */ void gm_801BB758(MinorScene*);
@@ -24,8 +26,8 @@ struct EventData;
 /* 1BBFE4 */ void gm_801BBFE4_OnUnload(void);
 /* 1BBFE8 */ void fn_801BBFE8(void);
 /* 1BC00C */ UNK_RET gm_801BC00C(UNK_PARAMS);
-/* 1BC488 */ UNK_RET gm_801BC488(UNK_PARAMS);
-/* 1BC4F4 */ UNK_RET gm_801BC4F4(UNK_PARAMS);
+/* 1BC488 */ int gm_801BC488(UNK_PARAMS);
+/* 1BC4F4 */ UNK_RET gm_801BC4F4(HSD_GObj*);
 /* 1BC670 */ UNK_RET gm_801BC670(UNK_PARAMS);
 /* 1BC754 */ void gm_801BC754(HSD_GObj*);
 /* 1BC9E8 */ void gm_801BC9E8(HSD_GObj*);
@@ -52,15 +54,15 @@ struct EventData;
 /* 1BE638 */ void gm_801BE638(HSD_GObj*);
 /* 1BEA10 */ void gm_801BEA10(int);
 /* 1BEA4C */ void gm_801BEA4C(int);
-/* 1BEA88 */ void gm_801BEA88(int);
+/* 1BEA88 */ void gm_801BEA88(int, int);
 /* 1BEAF0 */ void gm_801BEAF0(int);
 /* 1BEB2C */ void gm_801BEB2C(int);
-/* 1BEB68 */ void gm_801BEB68(s32);
+/* 1BEB68 */ void gm_801BEB68(int);
 /* 1BEB74 */ void gm_801BEB74(u8);
 /* 1BEB80 */ u8 gm_801BEB80(void);
-/* 1BEB8C */ UNK_RET gm_801BEB8C(UNK_PARAMS);
+/* 1BEB8C */ bool gm_801BEB8C(u8);
 /* 1BEBA8 */ u8 gm_801BEBA8(u8);
-/* 1BEBC0 */ UNK_RET gm_801BEBC0(UNK_PARAMS);
+/* 1BEBC0 */ u8 gm_801BEBC0(u8);
 /* 1BEBF8 */ UNK_RET gm_801BEBF8(UNK_PARAMS);
 /* 1BEC54 */ void* gm_801BEC54(void);
 /* 1BEC80 */ void gm_801BEC80(MinorScene*);
@@ -72,16 +74,16 @@ struct EventData;
 /* 1BEE58 */ void gm_801BEE58(MinorScene*);
 /* 1BEE9C */ void gm_801BEE9C(MinorScene*);
 /* 1BEF84 */ void gm_801BEF84(MinorScene*);
-/* 1BEFA4 */ void gm_801BEFA4(s8);
-/* 1BEFB0 */ int gm_801BEFB0(void);
+/* 1BEFA4 */ void gm_801BEFA4(s8 ckind);
+/* 1BEFB0 */ CharacterKind gm_801BEFB0(void);
 /* 1BEFC0 */ void gm_801BEFC0(int);
-/* 1BEFD0 */ u8 gm_801BEFD0(void);
+/* 1BEFD0 */ int gm_801BEFD0(void);
 /* 1BEFE0 */ void gm_801BEFE0(s8);
-/* 1BEFF0 */ u8 gm_801BEFF0(void);
+/* 1BEFF0 */ int gm_801BEFF0(void);
 /* 1BF000 */ void gm_801BF000(s8);
 /* 1BF010 */ int gm_801BF010(void);
 /* 1BF020 */ void gm_801BF020(s8);
-/* 1BF030 */ u8 gm_801BF030(void);
+/* 1BF030 */ int gm_801BF030(void);
 /* 1BF040 */ void gm_801BF040(s8);
 /* 1BF050 */ int gm_801BF050(void);
 /* 1BF060 */ void gm_801BF060(MinorScene*);
@@ -89,11 +91,11 @@ struct EventData;
 /* 1BF3F8 */ UNK_RET gm_801BF3F8(UNK_PARAMS);
 /* 1BF4DC */ void gm_801BF4DC(MinorScene*);
 /* 1BF634 */ void gm_801BF634(s32, s8);
-/* 1BF648 */ s8 gm_801BF648(s32);
+/* 1BF648 */ int gm_801BF648(s32);
 /* 1BF65C */ void gm_801BF65C(s32, s8);
 /* 1BF670 */ u8 gm_801BF670(s32);
 /* 1BF684 */ void gm_801BF684(s16);
-/* 1BF694 */ u8 gm_801BF694(void);
+/* 1BF694 */ u8 gm_801BF694(void); ///< @returns InternalStageId
 /* 1BF6A8 */ void gm_801BF6A8(s8);
 /* 1BF6B8 */ u8 gm_801BF6B8(void);
 /* 1BF6C8 */ void gm_801BF6C8(s8);

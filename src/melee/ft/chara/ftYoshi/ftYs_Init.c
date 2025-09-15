@@ -1,30 +1,43 @@
-#include <placeholder.h>
-
-#include "forward.h"
-#include "ft/forward.h"
-#include "ftCommon/forward.h"
-#include "it/forward.h"
-#include <baselib/forward.h>
-
 #include "ftYs_Init.h"
 
 #include "ftYs_Guard.h"
 #include "ftYs_SpecialN.h"
 #include "types.h"
 
+#include <placeholder.h>
+
 #include "ef/efasync.h"
+
+#include "forward.h"
+
 #include "ft/fighter.h"
+
+#include "ft/forward.h"
+
 #include "ft/ftanim.h"
 #include "ft/ftcamera.h"
 #include "ft/ftcoll.h"
 #include "ft/ftparts.h"
 #include "ft/types.h"
+
+#include "ftCommon/forward.h"
+
+#include "ftYoshi/ftYs_SpecialHi.h"
+#include "ftYoshi/ftYs_SpecialS.h"
+
+#include "it/forward.h"
+
 #include "it/it_26B1.h"
+
+#include <baselib/forward.h>
 
 #include <dolphin/os/OSError.h>
 #include <baselib/aobj.h>
 #include <baselib/debug.h>
 #include <baselib/mobj.h>
+
+/// @todo Belongs in #ftYs_Guard.c?
+/* 3B75C0 */ Vec3 const ftYs_Unk1_803B75C0 = { 0 };
 
 #undef __FILE__
 #define __FILE__ "ftyoshi.c"

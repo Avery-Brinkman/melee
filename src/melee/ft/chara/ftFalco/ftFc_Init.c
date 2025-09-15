@@ -1,14 +1,15 @@
-#include <platform.h>
-
-#include "ftFox/forward.h"
-
 #include "ftFc_Init.h"
+
+#include <platform.h>
 
 #include "ft/ftanim.h"
 #include "ft/ftcamera.h"
 #include "ft/ftparts.h"
 #include "ft/inlines.h"
 #include "ft/types.h"
+
+#include "ftFox/forward.h"
+
 #include "ftFox/ftFx_AppealS.h"
 #include "ftFox/ftFx_Init.h"
 #include "ftFox/ftFx_SpecialHi.h"
@@ -472,7 +473,7 @@ void ftFc_Init_OnLoad(HSD_GObj* gobj)
 
     u8 _[8];
 
-    fp->x2224_b7 = 1;
+    fp->can_walljump = true;
     ftFx_Init_OnLoadForFalco(fp);
 
     sa2 = fp->dat_attrs;

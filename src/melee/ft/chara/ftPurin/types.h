@@ -1,19 +1,19 @@
 #ifndef MELEE_FT_CHARA_FTPURIN_TYPES_H
 #define MELEE_FT_CHARA_FTPURIN_TYPES_H
 
-#include <platform.h>
 #include <placeholder.h>
+#include <platform.h>
 
 #include <baselib/forward.h>
 
 #include <dolphin/mtx.h>
+#include <melee/ft/dobjlist.h>
 
 struct ftPurin_FighterVars {
     /* 0x222C */ u32 x222C;
     /* 0x2230 */ Vec3 x2230;
     /* 0x223C */ HSD_JObj* x223C;
-    /* 0x2240 */ u32 x2240;
-    /* 0x2244 */ void* x2244;
+    /* 0x2240 */ DObjList x2240;
     /* 0x2248 */ u32 x2248;
 };
 

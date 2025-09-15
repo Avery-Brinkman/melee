@@ -16,7 +16,7 @@ static char lbFile_803BA508[] = __FILE__;
 
 static bool cancel;
 
-void lbFile_8001615C(void* r3, int r4, void* r5, bool cancelflag)
+void lbFile_8001615C(int r3, int r4, void* r5, bool cancelflag)
 {
     if (cancelflag) {
         __assert(lbFile_803BA508, 71, "!cancelflag");
@@ -139,8 +139,8 @@ void lbFile_800164A4(s32 file, u32 dest, size_t* size, s32 pri,
     int type;
     *size = lbFile_8001634C(file);
     type = (dest >= 0x80000000) ? 0x21 : 0x23;
-    HSD_DevComRequest(file, 0, dest, ROUND_UP_32(*size), type, pri,
-                      callback, args);
+    HSD_DevComRequest(file, 0, dest, ROUND_UP_32(*size), type, pri, callback,
+                      args);
 }
 
 void lbFile_80016580(const char* basename, u32 src, u32* dest,

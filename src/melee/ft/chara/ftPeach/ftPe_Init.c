@@ -1,9 +1,3 @@
-#include <platform.h>
-#include <placeholder.h>
-
-#include "ftCommon/forward.h"
-#include "it/forward.h"
-
 #include "ftPe_Init.h"
 
 #include "ftPe_AttackS4.h"
@@ -16,12 +10,22 @@
 #include "ftPe_SpecialS.h"
 #include "types.h"
 
-#include "ft/ft_0CEE.h"
+#include <placeholder.h>
+#include <platform.h>
+
 #include "ft/ftcamera.h"
 #include "ft/ftdata.h"
 #include "ft/ftparts.h"
 #include "ft/inlines.h"
 #include "ft/types.h"
+
+#include "ftCommon/forward.h"
+
+#include "ftCommon/ftCo_ItemParasolFallSpecial.h"
+#include "ftCommon/ftCo_ItemParasolOpen.h"
+
+#include "it/forward.h"
+
 #include "it/it_26B1.h"
 #include "lb/lbanim.h"
 
@@ -407,8 +411,8 @@ void ftPe_Init_OnDeath(HSD_GObj* gobj)
     fp->fv.pe.has_float = true;
     fp->fv.pe.attacks4_motion_id = ftCo_MS_None;
     fp->fv.pe.specialairn_used = false;
-    fp->fv.pe.parasol_gobj = NULL;
-    fp->fv.pe.unk_item_gobj = NULL;
+    fp->fv.pe.parasol_gobj_1 = NULL;
+    fp->fv.pe.parasol_gobj_0 = NULL;
     fp->fv.pe.toad_gobj = NULL;
     fp->fv.pe.veg_gobj = NULL;
     ftParts_80074A4C(gobj, 0, 0);

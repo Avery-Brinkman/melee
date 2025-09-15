@@ -1,13 +1,14 @@
 #ifndef SYSDOLPHIN_BASELIB_SISLIB_H
 #define SYSDOLPHIN_BASELIB_SISLIB_H
 
-#include <platform.h>
 #include <placeholder.h>
-
-#include "baselib/forward.h"
+#include <platform.h>
 
 #include "baselib/archive.h"
 #include "baselib/cobj.h"
+
+#include "baselib/forward.h"
+
 #include "dolphin/gx/GXStruct.h"
 
 #include <dolphin/mtx.h>
@@ -120,12 +121,12 @@ void HSD_SisLib_803A74F0(HSD_Text*, s32 arg1, u8* arg2);
 void HSD_SisLib_803A746C(HSD_Text*, s32, f32, f32);
 s32 HSD_SisLib_803A70A0(HSD_Text*, ...);
 u32 lbl_803A6FEC(s32, s32, bool);
-int HSD_SisLib_803A6B98(HSD_Text* arg0, float, float, void*, ...);
+int HSD_SisLib_803A6B98(HSD_Text* arg0, float, float, const char*, ...);
 s32 HSD_SisLib_803A67EC(u8*, u8*);
 HSD_Text* HSD_SisLib_803A6754(int arg0, s32 arg1);
 void HSD_SisLib_803A660C(s32, s32, s32);
 void HSD_SisLib_803A6530(s32, s32, s32);
-void HSD_SisLib_803A6478(u8*, u8*);
+u8* HSD_SisLib_803A6478(u8*, u8*);
 void HSD_SisLib_803A6368(HSD_Text*, s32);
 void HSD_SisLib_803A62A0(s32, char*, char*);
 s32 HSD_SisLib_803A611C(int, HSD_GObj*, u16, u8, u8, u8, u8, u32);

@@ -1,6 +1,6 @@
-#include <platform.h>
-
 #include "ftZd_SpecialN.h"
+
+#include <platform.h>
 
 #include "ef/eflib.h"
 #include "ef/efsync.h"
@@ -103,7 +103,7 @@ void ftZd_SpecialN_Anim(HSD_GObj* gobj)
     }
 
     if (fp->cmd_vars[0] == 0) {
-        fp->x2218_b3 = 0;
+        fp->reflecting = false;
     }
 
     if (!ftAnim_IsFramesRemaining(gobj)) {
@@ -129,8 +129,8 @@ void ftZd_SpecialAirN_Anim(HSD_GObj* gobj)
                                 &ftZd_SpecialN_8013ADB0);
     }
 
-    if (fp->cmd_vars[0] == 0U) {
-        fp->x2218_b3 = 0;
+    if (fp->cmd_vars[0] == 0) {
+        fp->reflecting = false;
     }
 
     if (!ftAnim_IsFramesRemaining(gobj)) {

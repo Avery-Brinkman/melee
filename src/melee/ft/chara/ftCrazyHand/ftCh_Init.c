@@ -1,18 +1,20 @@
-#include <platform.h>
-#include <placeholder.h>
-
-#include "baselib/forward.h"
-#include "ftCrazyHand/forward.h"
-
 #include "ftCh_Init.h"
 
 #include "types.h"
+
+#include <placeholder.h>
+#include <platform.h>
+
+#include "baselib/forward.h"
 
 #include "ft/ft_081B.h"
 #include "ft/ftbosslib.h"
 #include "ft/ftcamera.h"
 #include "ft/inlines.h"
 #include "ft/types.h"
+
+#include "ftCrazyHand/forward.h"
+
 #include "ftMasterHand/types.h"
 #include "it/it_26B1.h"
 #include "pl/player.h"
@@ -688,8 +690,8 @@ void ftCh_Init_OnLoad(HSD_GObj* gobj)
     fp->fv.ch.x224C = 0;
     fp->fv.ch.x2250 = ftMh_MS_Damage2;
     fp->fv.ch.x2254 = 0;
-    fp->x1A88.x10 = 1;
-    ftBossLib_8015BD24(fp->x1A88.x10, &fp->fv.mh.x223C, fp->fv.ch.x2238,
+    fp->x1A88.level = 1;
+    ftBossLib_8015BD24(fp->x1A88.level, &fp->fv.mh.x223C, fp->fv.ch.x2238,
                        ftData_attr->x0, ftData_attr->x8, ftData_attr->x4);
 }
 

@@ -1,22 +1,23 @@
-#include <platform.h>
-
-#include <baselib/forward.h>
-
 #include "ftLk_SpecialHi.h"
+
+#include <platform.h>
 
 #include "ef/eflib.h"
 #include "ef/efsync.h"
 #include "ft/fighter.h"
 #include "ft/ft_081B.h"
 #include "ft/ft_0892.h"
-#include "ft/ft_0D14.h"
+#include "ftCommon/ftCo_Attack100.h"
 #include "ft/ftanim.h"
 #include "ft/ftcliffcommon.h"
 #include "ft/ftcommon.h"
 #include "ft/ftparts.h"
 #include "ft/types.h"
 #include "ftCommon/ftCo_FallSpecial.h"
+#include "ftCommon/ftCo_Landing.h"
 #include "ftLink/types.h"
+
+#include <baselib/forward.h>
 
 #include <common_structs.h>
 
@@ -127,7 +128,7 @@ void ftLk_SpecialAirHi_Coll(HSD_GObj* gobj)
     u8 _[8];
     Fighter* fp = GET_FIGHTER(gobj)->dat_attrs;
     if (ft_CheckGroundAndLedge(gobj, 0)) {
-        ftCo_800D5CB0(gobj, 0, fp->facing_dir1);
+        ftCo_LandingFallSpecial_Enter(gobj, false, fp->facing_dir1);
     } else if (ftCliffCommon_80081298(gobj)) {
         return;
     }

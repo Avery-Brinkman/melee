@@ -1,21 +1,24 @@
-#include <placeholder.h>
-
-#include "ft/forward.h"
-#include "ftCommon/forward.h"
-
 #include "ftCo_Jump.h"
 
 #include "math.h"
 
+#include <placeholder.h>
+
 #include "ft/fighter.h"
+
+#include "ft/forward.h"
+
 #include "ft/ft_081B.h"
 #include "ft/ft_0877.h"
 #include "ft/ft_0881.h"
-#include "ft/ft_0CEE.h"
-#include "ft/ft_0D14.h"
+#include "ftCommon/ftCo_Attack100.h"
+#include "ft/ft_0DF1.h"
 #include "ft/ftcommon.h"
 #include "ft/inlines.h"
 #include "ft/types.h"
+
+#include "ftCommon/forward.h"
+
 #include "ftCommon/ftCo_AirCatch.h"
 #include "ftCommon/ftCo_AttackAir.h"
 #include "ftCommon/ftCo_EscapeAir.h"
@@ -23,6 +26,7 @@
 #include "ftCommon/ftCo_FallSpecial.h"
 #include "ftCommon/ftCo_HammerJump.h"
 #include "ftCommon/ftCo_HammerWait.h"
+#include "ftCommon/ftCo_ItemParasolOpen.h"
 #include "ftCommon/ftCo_ItemThrow.h"
 #include "ftCommon/ftCo_JumpAerial.h"
 #include "ftCommon/ftCo_KneeBend.h"

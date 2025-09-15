@@ -3,9 +3,10 @@
 
 #include <platform.h>
 
+#include "baselib/class.h"
+
 #include "baselib/forward.h" // IWYU pragma: export
 
-#include "baselib/class.h"
 #include "baselib/texp.h"
 #include "baselib/tobj.h"
 
@@ -66,6 +67,8 @@
 #define RENDER_ZMODE_ALWAYS (1 << 27)
 #define RENDER_NO_ZUPDATE (1 << 29)
 #define RENDER_XLU (1 << 30)
+
+#define RENDER_BLENDING (RENDER_XLU | RENDER_NO_ZUPDATE)
 
 struct HSD_MObj {
     HSD_Class parent;

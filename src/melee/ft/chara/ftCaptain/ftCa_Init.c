@@ -1,6 +1,3 @@
-#include "ftCaptain/forward.h"
-#include "ftCommon/forward.h"
-
 #include "ftCa_Init.h"
 
 #include "ftCa_SpecialHi.h"
@@ -16,6 +13,9 @@
 #include "ft/ftstarrodswing.h"
 #include "ft/inlines.h"
 #include "ft/types.h"
+
+#include "ftCaptain/forward.h"
+#include "ftCommon/forward.h"
 
 MotionState ftCa_Init_MotionStateTable[ftCa_MS_SelfCount] = {
     {
@@ -351,7 +351,7 @@ void ftCa_Init_OnLoadForGanon(Fighter* fp)
 void ftCa_Init_OnLoad(HSD_GObj* gobj)
 {
     Fighter* fp = GET_FIGHTER(gobj);
-    fp->x2224_b7 = true;
+    fp->can_walljump = true;
     PUSH_ATTRS(fp, ftCaptain_DatAttrs);
 }
 

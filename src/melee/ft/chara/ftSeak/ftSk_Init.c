@@ -1,11 +1,11 @@
-#include "forward.h"
-
 #include "ftSeak/ftSk_Init.h"
 
 #include "ftSk_SpecialHi.h"
 #include "ftSk_SpecialLw.h"
 #include "ftSk_SpecialN.h"
 #include "ftSk_SpecialS.h"
+
+#include "forward.h"
 
 #include "ft/ftcamera.h"
 #include "ft/ftcolanim.h"
@@ -331,7 +331,7 @@ void ftSk_Init_OnLoad(HSD_GObj* gobj)
     Fighter* fp = GET_FIGHTER(gobj);
     void** item_list = fp->ft_data->x48_items;
 
-    fp->x2224_b7 = 1;
+    fp->can_walljump = true;
 
     PUSH_ATTRS(fp, ftSeakAttributes);
 

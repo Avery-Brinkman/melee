@@ -3,10 +3,11 @@
 
 #include <placeholder.h>
 
-#include <dolphin/mtx.h>
 #include <melee/gr/forward.h>
 #include <melee/lb/forward.h>
 #include <sysdolphin/baselib/forward.h>
+
+#include <dolphin/mtx.h>
 
 typedef enum {
     PsType_Display = 1,
@@ -65,7 +66,8 @@ typedef enum {
 /* 1D2ED0 */ void fn_801D2ED0(HSD_GObj*, int);
 /* 1D2FD0 */ void fn_801D2FD0(HSD_GObj*, int);
 /* 1D3084 */ void fn_801D3084(HSD_GObj*, int);
-/* 1D3138 */ HSD_TObj* grStadium_801D3138(Ground_GObj*, HSD_ImageDesc*, HSD_MObj**);
+/* 1D3138 */ HSD_TObj* grStadium_801D3138(Ground_GObj*, HSD_ImageDesc*,
+                                          HSD_MObj**);
 /* 1D32D0 */ bool grStadium_801D32D0(Ground_GObj*);
 /* 1D3460 */ void grStadium_801D3460(Ground_GObj*);
 /* 1D384C */ void grStadium_801D384C(Ground_GObj*);
@@ -80,7 +82,7 @@ typedef enum {
 /* 1D410C */ UNK_RET grStadium_801D410C(UNK_PARAMS);
 /* 1D4150 */ UNK_RET grStadium_801D4150(UNK_PARAMS);
 /* 1D4194 */ void grStadium_801D4194(Ground_GObj*);
-/* 1D4220 */ void fn_801D4220(UNK_T, int, UNK_T, bool);
+/* 1D4220 */ void fn_801D4220(int, int, UNK_T, bool);
 /* 1D42B8 */ bool grStadium_801D42B8(void);
 /* 1D4354 */ Ground* grStadium_801D4354(Ground_GObj*);
 /* 1D435C */ void grStadium_801D435C(Ground_GObj*);

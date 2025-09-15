@@ -1,14 +1,13 @@
 #ifndef GALE01_1DCCFC
 #define GALE01_1DCCFC
 
-#include <platform.h>
 #include <placeholder.h>
+#include <platform.h>
 
 #include "gr/forward.h"
+#include "it/forward.h"
 #include "lb/forward.h"
 #include <baselib/forward.h>
-
-#include "it/inlines.h"
 
 /* 1DCCFC */ UNK_RET grCorneria_801DCCFC(UNK_PARAMS);
 /* 1DCE1C */ UNK_RET grCorneria_801DCE1C(UNK_PARAMS);
@@ -20,8 +19,6 @@
 /* 1DD534 */ HSD_GObj* grCorneria_801DD534(int);
 /* 1DD620 */ void grCorneria_801DD620(Ground_GObj*);
 /* 1DD64C */ bool grCorneria_801DD64C(Ground_GObj*);
-/* 1DD654 */ void grCorneria_801DD654(Ground_GObj*);
-/* 1DD658 */ void grCorneria_801DD658(Ground_GObj*);
 /* 1DD65C */ void fn_801DD65C(Ground_GObj* gobj);
 /* 1DD674 */ void grCorneria_801DD674(Ground_GObj*);
 /* 1DD9A0 */ bool grCorneria_801DD9A0(Ground_GObj*);
@@ -33,7 +30,6 @@
 /* 1DDDA8 */ UNK_RET grCorneria_801DDDA8(UNK_PARAMS);
 /* 1DDE88 */ UNK_RET grCorneria_801DDE88(UNK_PARAMS);
 /* 1DE024 */ void grCorneria_801DE024(Ground_GObj*);
-/* 1DE4BC */ void grCorneria_801DE4BC(Ground_GObj*);
 /* 1DE4C0 */ void grCorneria_801DE4C0(Ground_GObj*);
 /* 1DE560 */ bool grCorneria_801DE560(Ground_GObj*);
 /* 1DE568 */ void grCorneria_801DE568(Ground_GObj*);
@@ -63,7 +59,7 @@
 /* 1E0C3C */ void grCorneria_801E0C3C(Ground_GObj*);
 /* 1E0D28 */ bool grCorneria_801E0D28(Ground_GObj*);
 /* 1E0D30 */ void grCorneria_801E0D30(Ground_GObj*);
-/* 1E0DE4 */ void grCorneria_801E0DE4(Ground_GObj*);
+/* 1E0DE4 */ s32 grCorneria_801E0DE4(Ground_GObj* gobj);
 /* 1E0E0C */ bool grCorneria_801E0E0C(Ground_GObj*);
 /* 1E0E14 */ void grCorneria_801E0E14(Ground_GObj*);
 /* 1E0E40 */ UNK_RET grCorneria_801E0E40(UNK_PARAMS);
@@ -84,7 +80,7 @@
 /* 1E2454 */ UNK_RET fn_801E2454(UNK_PARAMS);
 /* 1E2480 */ UNK_RET fn_801E2480(UNK_PARAMS);
 /* 1E24AC */ UNK_RET fn_801E24AC(UNK_PARAMS);
-/* 1E2550 */ UNK_RET grCorneria_801E2550(UNK_PARAMS);
+/* 1E2550 */ s32 grCorneria_801E2550(Ground_GObj* gobj, struct grCorneria_GroundVars* corneria);
 /* 1E2598 */ UNK_RET grCorneria_801E2598(UNK_PARAMS);
 /* 1E25C4 */ UNK_RET grCorneria_801E25C4(UNK_PARAMS);
 /* 1E2738 */ UNK_RET grCorneria_801E2738(UNK_PARAMS);

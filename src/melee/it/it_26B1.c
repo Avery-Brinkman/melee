@@ -1,8 +1,6 @@
-#include <placeholder.h>
-
-#include <baselib/forward.h>
-
 #include "it_26B1.h"
+
+#include <placeholder.h>
 
 #include "ft/ftlib.h"
 #include "ft/types.h"
@@ -25,6 +23,8 @@
 #include "it/items/itsscope.h"
 #include "it/items/itsword.h"
 #include "it/types.h"
+
+#include <baselib/forward.h>
 
 #include <common_structs.h>
 #include <baselib/gobj.h>
@@ -637,7 +637,7 @@ static inline void What(HSD_GObj* gobj, struct ItemStateDesc* itemStateDesc,
         return;
     }
     HSD_JObjRemoveAnimAll(item_jobj2);
-    ip->x524_cmd.x8 = NULL;
+    ip->x524_cmd.u = NULL;
 }
 
 /// Transfer item on character transformation (Zelda <-> Sheik)
@@ -693,7 +693,7 @@ void it_8026B9A8(HSD_GObj* gobj, HSD_GObj* arg1, Fighter_Part arg2)
     }
 
     HSD_JObjRemoveAnimAll(jobj0);
-    ip->x524_cmd.x8 = NULL;
+    ip->x524_cmd.u = NULL;
 }
 
 /// Multiply item's scale

@@ -1,6 +1,3 @@
-#include "ftCommon/forward.h"
-#include "it/forward.h"
-
 #include "ftMr_Init.h"
 
 #include "ftMr_SpecialHi.h"
@@ -15,6 +12,10 @@
 #include "ft/ftparts.h"
 #include "ft/inlines.h"
 #include "ft/types.h"
+
+#include "ftCommon/forward.h"
+#include "it/forward.h"
+
 #include "it/it_26B1.h"
 
 MotionState ftMr_Init_MotionStateTable[ftMr_MS_SelfCount] = {
@@ -177,7 +178,7 @@ void ftMr_Init_OnLoad(HSD_GObj* gobj)
     ftData* ftDataInfo = fp->ft_data;
     void** items = ftDataInfo->x48_items;
 
-    fp->x2224_b7 = true;
+    fp->can_walljump = true;
 
     PUSH_ATTRS(fp, ftMario_DatAttrs);
 

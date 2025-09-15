@@ -1,6 +1,3 @@
-#include "forward.h"
-#include "ftCommon/forward.h"
-
 #include "ftSs_Init.h"
 
 #include "ftSs_SpecialHi.h"
@@ -10,14 +7,19 @@
 #include "ftSs_SpecialS.h"
 #include "types.h"
 
+#include "forward.h"
+
 #include "ft/ft_081B.h"
-#include "ft/ft_0D14.h"
+#include "ftCommon/ftCo_Attack100.h"
 #include "ft/ftcamera.h"
 #include "ft/ftcolanim.h"
 #include "ft/ftcommon.h"
 #include "ft/ftparts.h"
 #include "ft/inlines.h"
 #include "ft/types.h"
+
+#include "ftCommon/forward.h"
+
 #include "ftCommon/ftCo_AirCatch.h"
 #include "it/it_26B1.h"
 #include "lb/lb_00B0.h"
@@ -274,7 +276,7 @@ void ftSs_Init_OnLoad(HSD_GObj* gobj)
     Fighter* fp = GET_FIGHTER(gobj);
     void** item_list = fp->ft_data->x48_items;
 
-    fp->x2224_b7 = 1;
+    fp->can_walljump = true;
 
     PUSH_ATTRS(fp, ftSs_DatAttrs);
 

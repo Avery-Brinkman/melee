@@ -1,6 +1,3 @@
-#include <platform.h>
-#include <placeholder.h>
-
 #include "ftMh_Init.h"
 
 #include "ftMh_BackAirplane1.h"
@@ -32,6 +29,9 @@
 #include "ftMh_Wait1_2.h"
 #include "ftMh_Walk.h"
 #include "types.h"
+
+#include <placeholder.h>
+#include <platform.h>
 
 #include "ft/ftbosslib.h"
 #include "ft/ftcamera.h"
@@ -642,8 +642,8 @@ void ftMh_Init_OnLoad(HSD_GObj* gobj)
         fp->fv.mh.x224C = 0;
         fp->fv.mh.x2250 = ftMh_MS_SweepLoop;
         fp->fv.mh.x2254 = 0;
-        fp->x1A88.x10 = 1;
-        ftBossLib_8015BD24(fp->x1A88.x10, &fp->fv.mh.x223C, fp->fv.mh.x2238,
+        fp->x1A88.level = 1;
+        ftBossLib_8015BD24(fp->x1A88.level, &fp->fv.mh.x223C, fp->fv.mh.x2238,
                            ftData_attr->x18, ftData_attr->x20,
                            ftData_attr->x1C);
     }

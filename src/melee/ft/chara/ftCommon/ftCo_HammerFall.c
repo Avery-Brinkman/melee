@@ -1,9 +1,9 @@
-#include <platform.h>
-
 #include "ftCo_HammerFall.h"
 
 #include "ftCo_HammerLanding.h"
 #include "ftCo_HammerWait.h"
+
+#include <platform.h>
 
 #include "ft/fighter.h"
 #include "ft/ft_081B.h"
@@ -80,5 +80,5 @@ void ftCo_HammerFall_Phys(Fighter_GObj* gobj)
 
 void ftCo_HammerFall_Coll(Fighter_GObj* gobj)
 {
-    ft_80082C74(gobj, ftCo_800C5F88);
+    ft_80082C74(gobj, ftCo_HammerLanding_Enter);
 }
